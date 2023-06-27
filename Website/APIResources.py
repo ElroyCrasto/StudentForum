@@ -6,6 +6,7 @@ class Test(Resource):
     @staticmethod
     def get():
         return jsonify({"Test": "Successfull"})
-
+    
+    @staticmethod
     def post():
         return "hello"

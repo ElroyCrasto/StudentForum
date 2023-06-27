@@ -15,12 +15,12 @@ def CreateApp():
 
     # Database Configuration
     App.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Database.db"
-    from .DatabaseModels import TestTable
+    from .DatabaseModels import User
     Database.init_app(App)
 
     # Blueprints
-    from .DefaultRoutes import Default
-    App.register_blueprint(Default)
+    from .PageRoutes import PageRoute
+    App.register_blueprint(PageRoute)
 
     # API Configuration
     API = Api(App)
