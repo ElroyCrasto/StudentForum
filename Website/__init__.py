@@ -24,8 +24,9 @@ def CreateApp():
 
     # API Configuration
     API = Api(App)
-    from .APIResources import Test
-    API.add_resource(Test, "/api/")
+    from .APIResources import UserLoginVerification, UsernameCheck
+    API.add_resource(UserLoginVerification, "/api/LoginVeriication")
+    API.add_resource(UsernameCheck, "/api/UsernameCheck")
     CORS(App)
 
     # Special Route
