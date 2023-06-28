@@ -16,13 +16,13 @@ def SpecialCharCheck(String):
 def SignInValidation(Info):
     
     # Username Check
-    if (SpecialCharCheck(Info["Username"])) == False: return False,"Username Cannot Container Special Charectors"
+    if (SpecialCharCheck(Info["Username"])) == False: return False,"Username Cannot Contain Special Charecters"
     CheckUsername = User.query.filter_by(Username=Info["Username"].strip()).first()
     if CheckUsername: return False, "Invalid Username"
     
     # FirstName and LastName Check
-    if (SpecialCharCheck(Info["FirstName"])) == False: return False,"FirstName Cannot Container Special Charectors"
-    if (SpecialCharCheck(Info["LastName"])) == False: return False,"LastName Cannot Container Special Charectors"
+    if (SpecialCharCheck(Info["FirstName"].strip())) == False: return False,"FirstName Cannot Contain Special Charecters"
+    if (SpecialCharCheck(Info["LastName"].strip())) == False: return False,"LastName Cannot Contain Special Charecters"
     
     # DOB Check
     try:DOB = datetime.datetime.strptime(Info["DOB"], '%Y-%m-%d')
