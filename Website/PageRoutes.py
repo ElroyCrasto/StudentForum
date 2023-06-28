@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+import string, random
 
 # TokenGeneration Function
 def TokenGeneration():
