@@ -1,5 +1,15 @@
 from flask import Blueprint, render_template
 
+# TokenGeneration Function
+def TokenGeneration():
+    Token = ''.join(random.choices(string.ascii_uppercase +
+                                           string.digits + string.ascii_lowercase, k=15))
+    Check = User.query.filter_by(AuthToken=Token).first()
+    if Check:
+        return TokenGeneration()
+    else:
+        return Token
+
 PageRoute = Blueprint("PageRoute", __name__)
 
 

@@ -24,8 +24,8 @@ def CreateApp():
 
     # API Configuration
     API = Api(App)
-    from .APIResources import UserLoginVerification, UsernameCheck
-    API.add_resource(UserLoginVerification, "/api/LoginVeriication")
+    from .APIResources import UserSignUp, UsernameCheck
+    API.add_resource(UserSignUp, "/api/SignUp")
     API.add_resource(UsernameCheck, "/api/UsernameCheck")
     CORS(App)
 
