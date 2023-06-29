@@ -38,6 +38,9 @@ class User(db.Model,UserMixin):
         self.SecurityQuestion = SecurityQuestion
         self.SecurityAnswer = SecurityAnswer
 
+    def get_id(self):
+        return self.ID
+
 class Room(db.Model):
     ID = db.Column("ID", db.Integer, primary_key=True)
     Course = db.Column("Course", db.String)
@@ -60,3 +63,4 @@ class Post(db.Model):
 
     def get_id(self):
         return self.ID
+
