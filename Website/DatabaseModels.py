@@ -43,6 +43,8 @@ class User(db.Model,UserMixin):
 
 class Room(db.Model):
     ID = db.Column("ID", db.Integer, primary_key=True)
+    Title = db.Column("Title", db.String, required=True)
+    Description = db.Column("Description", db.String)
     Course = db.Column("Course", db.String)
     Year = db.Column("Year", db.String)
     PID = db.Relationship("Post")
