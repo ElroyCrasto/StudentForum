@@ -54,10 +54,9 @@ class Room(db.Model):
 
 class Post(db.Model):
     ID = db.Column("ID", db.Integer, primary_key=True)
-    Type = db.Column("Type", db.String)
-    Title = db.Column("Title", db.String)
-    Image = db.Column("Image", db.String)
-    Content = db.Column("Content", db.String)
+    Type = db.Column("Type", db.String, required=True)
+    Title = db.Column("Title", db.String, required=True)
+    Content = db.Column("Content", db.String, required=True)
     Views = db.Column("Views", db.Integer, default=0)
     PostedAt = db.Column("PostedAt",db.DateTime, default=func.now())
     RID = db.Column("RID", db.Integer, db.Foreignkey(Room.ID))
