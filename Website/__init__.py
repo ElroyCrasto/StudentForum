@@ -17,7 +17,7 @@ def CreateApp():
 
     # Database Configuration
     App.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Database.db"
-    from .DatabaseModels import User
+    from .DatabaseModels import User,Room,Post
     Database.init_app(App)
 
     # Blueprints

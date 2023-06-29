@@ -23,6 +23,7 @@ class User(db.Model,UserMixin):
                          default=func.now(), nullable=False)
     SecurityQuestion = db.Column("SecurityQuestion", db.String, nullable=False)
     SecurityAnswer = db.Column("SecurityAnswer", db.String, nullable=False)
+    Posts = db.Relationship("Post")
 
     # Initializing User Object
     def __init__(self, Username, FirstName, LastName, DOB, Password, Year, Course, RollNum, SecurityQuestion, SecurityAnswer):
@@ -39,3 +40,28 @@ class User(db.Model,UserMixin):
 
     def get_id(self):
         return self.ID
+
+class Room(db.Model):
+    ID = db.Column("ID", db.Integer, primary_key=True)
+    Title = db.Column("Title", db.String, nullable=True)
+    Description = db.Column("Description", db.String)
+    Course = db.Column("Course", db.String)
+    Year = db.Column("Year", db.String)
+    PID = db.Relationship("Post")
+
+    def get_id(self):
+        return self.ID
+
+class Post(db.Model):
+    ID = db.Column("ID", db.Integer, primary_key=True)
+    Type = db.Column("Type", db.String, nullable=True)
+    Title = db.Column("Title", db.String, nullable=True)
+    Content = db.Column("Content", db.String, nullable=True)
+    Views = db.Column("Views", db.Integer, default=0)
+    PostedAt = db.Column("PostedAt",db.DateTime, default=func.now())
+    RID = db.Column("RID", db.Integer, db.ForeignKey(Room.ID))
+    UID = db.Column("UID", db.Integer, db.ForeignKey(User.ID))
+
+    def get_id(self):
+        return self.ID
+
