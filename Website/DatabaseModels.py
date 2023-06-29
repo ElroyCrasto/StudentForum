@@ -43,7 +43,7 @@ class User(db.Model,UserMixin):
 
 class Room(db.Model):
     ID = db.Column("ID", db.Integer, primary_key=True)
-    Title = db.Column("Title", db.String, required=True)
+    Title = db.Column("Title", db.String, nullable=True)
     Description = db.Column("Description", db.String)
     Course = db.Column("Course", db.String)
     Year = db.Column("Year", db.String)
@@ -54,12 +54,12 @@ class Room(db.Model):
 
 class Post(db.Model):
     ID = db.Column("ID", db.Integer, primary_key=True)
-    Type = db.Column("Type", db.String, required=True)
-    Title = db.Column("Title", db.String, required=True)
-    Content = db.Column("Content", db.String, required=True)
+    Type = db.Column("Type", db.String, nullable=True)
+    Title = db.Column("Title", db.String, nullable=True)
+    Content = db.Column("Content", db.String, nullable=True)
     Views = db.Column("Views", db.Integer, default=0)
     PostedAt = db.Column("PostedAt",db.DateTime, default=func.now())
-    RID = db.Column("RID", db.Integer, db.Foreignkey(Room.ID))
+    RID = db.Column("RID", db.Integer, db.ForeignKey(Room.ID))
     UID = db.Column("UID", db.Integer, db.ForeignKey(User.ID))
 
     def get_id(self):
