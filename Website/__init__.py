@@ -3,9 +3,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_cors import CORS
+from flask_login import LoginManager
 
 # Creeting SQLALchemy Database Object
 Database = SQLAlchemy()
+
 
 
 def CreateApp():
@@ -34,5 +36,12 @@ def CreateApp():
     def SetupDatabase():
         Database.create_all()
         Database.session.commit()
+
+    LoginManagerObj = LoginManager()
+    LoginManagerObj.init_app(App)
+
+    @LoginManagerObj.user_loader
+    def load_user(ID):
+        return User.query.get(int(ID))
 
     return App

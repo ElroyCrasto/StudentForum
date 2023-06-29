@@ -36,3 +36,6 @@ class User(db.Model,UserMixin):
         self.RollNum = RollNum
         self.SecurityQuestion = SecurityQuestion
         self.SecurityAnswer = SecurityAnswer
+
+    def get_id(self):
+        return self.ID
