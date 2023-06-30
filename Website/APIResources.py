@@ -28,7 +28,7 @@ class UserSignUp(Resource):
         Data = UserSignUpData.parse_args()
         Check,Reason = UserSignUp.SignInValidation(Data)
         if Check == False:
-            res = jsonify({"Error":Reason})
+            res = jsonify({"Status":0,"Message":Reason})
         else:
             try:
                 NewUser = User(Data["Username"].strip(),
@@ -44,8 +44,8 @@ class UserSignUp(Resource):
                 db.session.add(NewUser)
                 db.session.commit()
             except:
-                return jsonify({"Error":"An Error Occured While Creating User"})
-            res = jsonify({"Success":"User Registered Successfully"})
+                return jsonify({"Status": 0,"Message":"An Error Occured While Creating User"})
+            res = jsonify({"Status": 1,"Message":"User Registered Successfully"})
         return res
     
     @staticmethod
@@ -84,11 +84,11 @@ class UsernameCheck(Resource):
     def post():
         Data = NewUsernameCheck.parse_args()
         check = User.query.filter_by(Username=Data["Username"]).first()
-        if check:
-            res = jsonify({"Error":"Username Already Exists"})
+        if check and not SpecialCharCheck(Data["Username"]):
+            res = jsonify({"Status":0,"Message":"Username Already Exists Or Isnt a Valid Username"})
             res.status_code = 200
         else:
-            res = jsonify({"Success":"Username is Available"})
+            res = jsonify({"Status":1,"Message":"Username is Available"})
             res.status_code = 200
         return res
 
@@ -116,7 +116,7 @@ class MakePost(Resource):
             return jsonify({"Staus":0,"Message":"Room Does Not Exist!"})
         else:
             if not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
-               return jsonify({"Staus":0,"Message":"You Do Not Have Access to Post in This Room"})
+               return jsonify({"Staus":2,"Message":"You Do Not Have Access to Post in This Room"})
         
         # Saving Post To Database
         try:
