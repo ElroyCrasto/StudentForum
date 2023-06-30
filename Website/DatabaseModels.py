@@ -42,6 +42,8 @@ class User(db.Model,UserMixin):
         return self.ID
 
 class Room(db.Model):
+
+    # Columns
     ID = db.Column("ID", db.Integer, primary_key=True)
     Title = db.Column("Title", db.String, nullable=True)
     Description = db.Column("Description", db.String)
@@ -53,7 +55,10 @@ class Room(db.Model):
         return self.ID
 
 class Post(db.Model):
+
+    # Columns
     ID = db.Column("ID", db.Integer, primary_key=True)
+    PublicID = db.Column("PublicID", db.String, unique=True, nullable=True)
     Type = db.Column("Type", db.String, nullable=True)
     Title = db.Column("Title", db.String, nullable=True)
     Content = db.Column("Content", db.String, nullable=True)
@@ -61,6 +66,15 @@ class Post(db.Model):
     PostedAt = db.Column("PostedAt",db.DateTime, default=func.now())
     RID = db.Column("RID", db.Integer, db.ForeignKey(Room.ID))
     UID = db.Column("UID", db.Integer, db.ForeignKey(User.ID))
+
+    # Initializing Post Object
+    def __init__(self, PublicID, Type, Title, Content, RID, UID):
+        self.PublicID = PublicID
+        self.Type = Type
+        self.Title = Title
+        self.Content = Content
+        self.RID = RID
+        self.UID = UID
 
     def get_id(self):
         return self.ID
