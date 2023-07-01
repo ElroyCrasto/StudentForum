@@ -34,7 +34,7 @@ def LoginPage():
         FormPassowrd= request.form.get("password")
         AttemptedUser = User.query.filter_by( Username= FormUsername, Password= FormPassowrd ).first()
         if AttemptedUser == None:
-            return render_template("LoginPage.html")
+            return render_template("LoginPage.html", msg="Invalid Credentials")
 
         login_user(AttemptedUser)
         Token = TokenGeneration()

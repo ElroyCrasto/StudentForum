@@ -4,6 +4,22 @@
 Login
 {%endblock%}
 
+{%block head%}
+<script defer type="text/javascript" src="{{url_for('static',filename='Javascript/LoginValidate.js')}}"></script>
+{%endblock%}
+
 {%block body%}
-<h1 class="display-1 text-center">Login</h1>
+
+<div class="container">
+    <form method="post" action="#" id="loginform"> 
+        <h1 class="display-1 text-center">Login</h1>
+            Enter Your username : <input type="text" id="username" name="username" required><br><br><br>
+            Enter Your password : <input type="text" id="password" name="password" type="password" required><br><br><br>
+            <div>
+                <h1 id="error">{{msg}}</h1>
+            </div>
+    </form>
+    <button onclick="LoginValidate()">Log-In</button>
+</div>
+
 {%endblock%}
