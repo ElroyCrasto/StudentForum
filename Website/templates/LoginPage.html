@@ -14,7 +14,8 @@ Login
     <form method="post" action="#" id="loginform"> 
         <h1 class="display-1 text-center">Login</h1>
             Enter Your username : <input type="text" id="username" name="username" required><br><br><br>
-            Enter Your password : <input type="text" id="password" name="password" type="password" required><br><br><br>
+            Enter Your password : <input type="password" id="password" name="password" required><br><br><br>
+            <input type="checkbox" onclick="ShowPassword()">Show Password
             <div>
                 <h1 id="error">{{msg}}</h1>
             </div>
