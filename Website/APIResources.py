@@ -15,6 +15,11 @@ def TokenGeneration(Table, Filter):
     else:
         return Token
 
+def LengthCheck(limit :int, word :str):
+    if len(word) < limit :return False 
+    else:return True
+
+
 def SpecialCharCheck(String):
     regex = re.compile('[\s@_!#$%^&*()<>?/\|}{~:]')
     if(regex.search(String.strip()) == None):
@@ -38,7 +43,6 @@ class UserSignUp(Resource):
                 Data["Password"].strip(),
                 Data["Year"].strip(),
                 Data["Course"].strip(),
-                Data["RollNum"],
                 Data["SecurityQuestion"].strip(),
                 Data["SecurityAnswer"].strip())
                 db.session.add(NewUser)
@@ -55,11 +59,17 @@ class UserSignUp(Resource):
         if (SpecialCharCheck(Info["Username"])) == False: return False,"Username Cannot Contain Special Charecters"
         CheckUsername = User.query.filter_by(Username=Info["Username"].strip()).first()
         if CheckUsername: return False, "Invalid Username"
-        
+        if (LengthCheck(8,Info["Username"].strip()) == False): return False, "Length of Username has to be greater than 8"
+
         # FirstName and LastName Check
         if (SpecialCharCheck(Info["FirstName"].strip())) == False: return False,"FirstName Cannot Contain Special Charecters"
         if (SpecialCharCheck(Info["LastName"].strip())) == False: return False,"LastName Cannot Contain Special Charecters"
+        if (LengthCheck(1,Info["FirstName"].strip()) == False): return False, "Length of FirstName has to be greater than 1"
+        if (LengthCheck(1,Info["Username"].strip()) == False): return False, "Length of Username has to be greater than 1"
         
+        # Password limit Check
+        if (LengthCheck(8,Info["Password"]) == False): return False, "Length of Password has to be greater than 8"
+
         # DOB Check
         try:DOB = datetime.datetime.strptime(Info["DOB"], '%Y-%m-%d')
         except ValueError:return False, "Invalid DOB"
@@ -68,12 +78,10 @@ class UserSignUp(Resource):
         # Year Course RollNum SecurityQuestion Check
         CheckYear = True if Info["Year"] in ["FY","SY","TY"] else False
         CheckCourse = True if Info["Course"] in ["CS","IT"] else False
-        CheckRollNum = User.query.filter_by(RollNum=Info["RollNum"]).first()
         CheckSecurityQuestion = True if Info["SecurityQuestion"] in ["Question"] else False # For The Time Period The Only Question Available is "Question"
         
         if CheckYear == False:return False, "Invalid Year"
         elif CheckCourse == False: return False, "Invalid Course"
-        elif CheckRollNum: return False, "Invalid RollNumber" 
         elif CheckSecurityQuestion == False: return False, "Invalid SecurityQuestion"
 
         # Validation Output
@@ -83,6 +91,8 @@ class UsernameCheck(Resource):
     @staticmethod
     def post():
         Data = NewUsernameCheck.parse_args()
+        if not (LengthCheck(8,Data["Username"].strip())):
+            return jsonify({"Status":0,"Message":"Username Already Exists Or Isnt a Valid Username"})
         check = User.query.filter_by(Username=Data["Username"]).first()
         if check and not SpecialCharCheck(Data["Username"]):
             res = jsonify({"Status":0,"Message":"Username Already Exists Or Isnt a Valid Username"})

@@ -14,7 +14,6 @@ UserSignUpData.add_argument("DOB", type=str, help="DOB Invalid!", required=True)
 UserSignUpData.add_argument("Password", type=str, help="Password Invalid!", required=True)
 UserSignUpData.add_argument("Year", type=str, help="Year Invalid!", required=True)
 UserSignUpData.add_argument("Course", type=str, help="Course Invalid!", required=True)
-UserSignUpData.add_argument("RollNum", type=int, help="RollNum Invalid!", required=True)
 UserSignUpData.add_argument("SecurityQuestion", type=str, help="SecurityQuestion Invalid!", required=True)
 UserSignUpData.add_argument("SecurityAnswer", type=str, help="SecurityAnswer Invalid!", required=True)
 
