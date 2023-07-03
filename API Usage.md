@@ -22,7 +22,7 @@
     ```
     {
         "Status" : Integer, #(Valid Options [0, 1])
-        "Message" : String, #Error message as well as Success
+        "Msg" : String, #Error message as well as Success
     }
 - Possible Messages
     **Error Messages with Status 0**
@@ -36,7 +36,7 @@
     - Invalid SecurityQuestion
     - An Error Occured While Creating User
 
-    **Success Message with Status 1**
+    **Success Msg with Status 1**
     - User Registered Successfully 
 
 ### UsernameCheck
@@ -52,13 +52,13 @@
     ```
     {
         "Status"  : Integer,
-        "Message" : String,
+        "Msg" : String,
     }
 Possible Messages
 - Error Messages with Status 0
     - Username Already Exists Or Isnt a Valid Username
 <br>
-- Success Message with Status 1
+- Success Msg with Status 1
     - Username is Available
 
 ### MakePost
@@ -79,7 +79,7 @@ Possible Messages
     ```
     {
         Status : Integer,
-        Message: String,
+        Msg: String,
     }
 
 - **Possible Responses**
@@ -94,3 +94,44 @@ Possible Messages
 
     Forbidden Response (Status: 2)
     - You Do Not Have Access to Post in This Room
+
+### GetPost
+- URL: http://localhost:5000/api/GetProfileData
+- Method: Post
+- Cookie: Required
+- Login: Required 
+- Arguments:
+    ```
+    {
+        "Username"    : String,
+    }
+
+- Response Format
+    ```
+    {
+        Status : Integer,
+        Profile: JSON { Username: String,
+                        FirstName: String,
+                        LastName: String,
+                        Year: String,
+                        Course: String,
+                        Bio: String,
+                        DOB: String
+                      },
+        Posts: List of JSON [{
+                        Title: String,
+                        Content: String,
+                        Views: Integer,
+                        PostedAt: Date,
+                        RoomName: String   
+                            }]
+
+    }
+
+- **Possible Responses**
+    Success Response (Status:1)
+    - User Data
+
+    Error Response (Status: 0)
+    - Invalid Token
+    - No Such User

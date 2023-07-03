@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import jsonify, request
-from .ApiDataParser import NewUsernameCheck, UserSignUpData, MakePostData
+from .ApiDataParser import NewUsernameCheck, UserSignUpData, MakePostData, ProfileDetailsData
 from .DatabaseModels import User, Post, Room
 from . import Database as db
 import re, datetime, random, string
@@ -33,7 +33,7 @@ class UserSignUp(Resource):
         Data = UserSignUpData.parse_args()
         Check,Reason = UserSignUp.SignInValidation(Data)
         if Check == False:
-            res = jsonify({"Status":0,"Message":Reason})
+            res = jsonify({"Status":0,"Msg":Reason})
         else:
             try:
                 NewUser = User(Data["Username"].strip(),
@@ -48,8 +48,8 @@ class UserSignUp(Resource):
                 db.session.add(NewUser)
                 db.session.commit()
             except:
-                return jsonify({"Status": 0,"Message":"An Error Occured While Creating User"})
-            res = jsonify({"Status": 1,"Message":"User Registered Successfully"})
+                return jsonify({"Status": 0,"Msg":"An Error Occured While Creating User"})
+            res = jsonify({"Status": 1,"Msg":"User Registered Successfully"})
         return res
     
     @staticmethod
@@ -65,7 +65,7 @@ class UserSignUp(Resource):
         if (SpecialCharCheck(Info["FirstName"].strip())) == False: return False,"FirstName Cannot Contain Special Charecters"
         if (SpecialCharCheck(Info["LastName"].strip())) == False: return False,"LastName Cannot Contain Special Charecters"
         if (LengthCheck(1,Info["FirstName"].strip()) == False): return False, "Length of FirstName has to be greater than 1"
-        if (LengthCheck(1,Info["Username"].strip()) == False): return False, "Length of Username has to be greater than 1"
+        if (LengthCheck(1,Info["Username"].strip()) == False): return False, "Length of LastName has to be greater than 1"
         
         # Password limit Check
         if (LengthCheck(8,Info["Password"]) == False): return False, "Length of Password has to be greater than 8"
@@ -92,13 +92,13 @@ class UsernameCheck(Resource):
     def post():
         Data = NewUsernameCheck.parse_args()
         if not (LengthCheck(8,Data["Username"].strip())):
-            return jsonify({"Status":0,"Message":"Username Already Exists Or Isnt a Valid Username"})
+            return jsonify({"Status":0,"Msg":"Username Already Exists Or Isnt a Valid Username"})
         check = User.query.filter_by(Username=Data["Username"]).first()
-        if check and not SpecialCharCheck(Data["Username"]):
-            res = jsonify({"Status":0,"Message":"Username Already Exists Or Isnt a Valid Username"})
+        if check and SpecialCharCheck(Data["Username"]):
+            res = jsonify({"Status":0,"Msg":"Username Already Exists Or Isnt a Valid Username"})
             res.status_code = 200
         else:
-            res = jsonify({"Status":1,"Message":"Username is Available"})
+            res = jsonify({"Status":1,"Msg":"Username is Available"})
             res.status_code = 200
         return res
 
@@ -111,22 +111,22 @@ class MakePost(Resource):
         # Type Validation
         Type = Data["Type"].strip()
         if Type not in ["Question","General"]:
-            return jsonify({"Staus":0,"Message":"Invalid Post Type!"})
+            return jsonify({"Staus":0,"Msg":"Invalid Post Type!"})
 
         # Token Validation
-        if not Cookie: return({"Staus":0, "Message":"Invalid Token"})
+        if not Cookie: return({"Staus":0, "Msg":"Invalid Token"})
         CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
         if not CurrentUser:
-            res = jsonify({"Staus":0,"Message":"Invalid Token"})
+            res = jsonify({"Staus":0,"Msg":"Invalid Token"})
             return res
         
         # User-Room Privellege Validation
         _Room = Room.query.filter_by(Title=Data["RoomName"].strip()).first()
         if not _Room:
-            return jsonify({"Staus":0,"Message":"Room Does Not Exist!"})
+            return jsonify({"Staus":0,"Msg":"Room Does Not Exist!"})
         else:
             if not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
-               return jsonify({"Staus":2,"Message":"You Do Not Have Access to Post in This Room"})
+               return jsonify({"Staus":2,"Msg":"You Do Not Have Access to Post in This Room"})
         
         # Saving Post To Database
         try:
@@ -134,8 +134,34 @@ class MakePost(Resource):
             db.session.add(NewPost)
             db.session.commit()
         except :
-            return jsonify({"Staus":0,"Message":"An Error Occured!"})
+            return jsonify({"Staus":0,"Msg":"An Error Occured!"})
 
         # Response    
-        res = jsonify({"Staus":1,"Message":"Post Created Successfully!"})
+        res = jsonify({"Staus":1,"Msg":"Post Created Successfully!"})
+        return res
+
+class ProfileData(Resource):
+    @staticmethod
+    def post():
+        Data = ProfileDetailsData.parse_args()
+        Cookie = request.cookies.get("AuthToken")
+        if not Cookie: return jsonify({"Staus":0, "Msg":"Invalid Token"})
+        CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
+        if not CurrentUser:
+            res = jsonify({"Staus":0,"Msg":"Invalid Token"})
+            return res
+        UserDetails = User.query.filter_by(Username=Data["Username"]).first()
+        if not UserDetails:
+            res = jsonify({"Staus":0,"Msg":"No Such User"})
+            return res
+        GetPosts = UserDetails.Posts
+        res = jsonify({"Status": 1, "Profile": {"Username": UserDetails.Username,
+                                                "FirstName": UserDetails.FirstName,
+                                                "LastName": UserDetails.LastName,
+                                                "Year": UserDetails.Year,
+                                                "Course": UserDetails.Course,
+                                                "Bio": UserDetails.Bio,
+                                                "DOB": UserDetails.DOB},
+            "Posts":[{"Title" : i.Title,"Content": i.Content,"Views":i.Views,"PostedAt":i.PostedAt,"RoomName":Room.query.filter_by(ID=i.RID).first().Title} for i in GetPosts]
+            })
         return res
