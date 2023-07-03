@@ -22,7 +22,9 @@ def CreateApp():
 
     # Blueprints
     from .PageRoutes import PageRoute
+    from .PostRoutes import PostRoute
     App.register_blueprint(PageRoute)
+    App.register_blueprint(PostRoute)
 
     # API Configuration
     API = Api(App)
@@ -41,9 +43,9 @@ def CreateApp():
 
     LoginManagerObj = LoginManager()
     LoginManagerObj.init_app(App)
+    LoginManagerObj.login_view = "PageRoute.LoginPage"
 
     @LoginManagerObj.user_loader
     def load_user(ID):
         return User.query.get(int(ID))
-
     return App

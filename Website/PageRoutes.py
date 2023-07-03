@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template,request,redirect,url_for,make_response
 import string, random
 from .DatabaseModels import User
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from . import Database
 
 # TokenGeneration Function
@@ -51,11 +51,12 @@ def LoginPage():
 def SignUpPage():
     return render_template("SignUpPage.html"), 200
 
+@login_required
 @PageRoute.route("/Logout")
 def LogoutPage():
     current_user.AuthToken = None
     Database.session.commit()
-
     logout_user()
-
-    return redirect(url_for('PageRoute.HomePage'))
+    res = redirect(url_for('PageRoute.HomePage'))
+    res.set_cookie('AuthToken', "", expires=1)
+    return res

@@ -162,6 +162,6 @@ class ProfileData(Resource):
                                                 "Course": UserDetails.Course,
                                                 "Bio": UserDetails.Bio,
                                                 "DOB": UserDetails.DOB},
-            "Posts":[{"Title" : i.Title,"Content": i.Content,"Views":i.Views,"PostedAt":i.PostedAt,"RoomName":Room.query.filter_by(ID=i.RID).first().Title} for i in GetPosts]
+            "Posts":[{"Title" : i.Title,"Content": i.Content,"Views":i.Views,"PostedAt":i.PostedAt,"RoomName":Room.query.filter_by(ID=i.RID).first().Title, "ID":i.Identifier} for i in GetPosts]
             })
         return res
