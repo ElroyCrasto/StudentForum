@@ -95,8 +95,8 @@ Possible Messages
     Forbidden Response (Status: 2)
     - You Do Not Have Access to Post in This Room
 
-### GetPost
-- URL: http://localhost:5000/api/GetProfileData
+### GetProfile
+- URL: http://localhost:5000/api/GetProfile
 - Method: Post
 - Cookie: Required
 - Login: Required 

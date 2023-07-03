@@ -30,7 +30,7 @@ def CreateApp():
     API.add_resource(UserSignUp, "/api/SignUp")
     API.add_resource(UsernameCheck, "/api/UsernameCheck")
     API.add_resource(MakePost, "/api/MakePost")
-    API.add_resource(ProfileData, "/api/GetPost")
+    API.add_resource(ProfileData, "/api/GetProfile")
     CORS(App)
 
     # Special Route
