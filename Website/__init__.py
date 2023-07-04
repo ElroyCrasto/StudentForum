@@ -28,11 +28,12 @@ def CreateApp():
 
     # API Configuration
     API = Api(App)
-    from .APIResources import MakePost, UserSignUp, UsernameCheck, ProfileData
+    from .APIResources import MakePost, UserSignUp, UsernameCheck, ProfileData, GetRooms
     API.add_resource(UserSignUp, "/api/SignUp")
     API.add_resource(UsernameCheck, "/api/UsernameCheck")
     API.add_resource(MakePost, "/api/MakePost")
     API.add_resource(ProfileData, "/api/GetProfile")
+    API.add_resource(GetRooms, "/api/GetRoomsData")
     CORS(App)
 
     # Special Route

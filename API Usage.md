@@ -135,3 +135,27 @@ Possible Messages
     Error Response (Status: 0)
     - Invalid Token
     - No Such User
+
+### GetRooms
+- URL: http://localhost:5000/api/GetRoomsData
+- Method: GET
+- Login: Required
+- Cookie: Required
+- Arguments: None
+- Response
+    ```
+    {
+        "Status"  : Integer,
+        "RoomsList" : List of JSON [{
+                                    Title: String,
+                                    Description: String
+                                    }],
+        "Msg" : String
+    }
+Possible Messages
+- Error Messages with Status 0
+    - Invalid Token
+<br>
+- Success Msg with Status 1
+    - Request Successful
+

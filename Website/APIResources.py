@@ -165,3 +165,15 @@ class ProfileData(Resource):
             "Posts":[{"Title" : i.Title,"Content": i.Content,"Views":i.Views,"PostedAt":i.PostedAt,"RoomName":Room.query.filter_by(ID=i.RID).first().Title, "ID":i.Identifier} for i in GetPosts]
             })
         return res
+
+class GetRooms(Resource):
+    @staticmethod
+    def get():
+        Cookie = request.cookies.get("AuthToken")
+        CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
+        if not CurrentUser:
+            return jsonify({"Status":0,"Msg":"Invalid Token"})
+        if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": RoomsData = Room.query.all()
+        else:
+            RoomsData = Room.query.filter(Room.Year.in_([CurrentUser.Year, "ALL"])).filter(Room.Course.in_([CurrentUser.Course, "All"])).all()
+        return jsonify({"RoomsList":[{"Title":i.Title,"Description":i.Description} for i in RoomsData], "Status":1 , "Msg":"Request Successful"})
