@@ -162,8 +162,7 @@ class ProfileData(Resource):
                                                 "Course": UserDetails.Course,
                                                 "Bio": UserDetails.Bio,
                                                 "DOB": UserDetails.DOB},
-            "Posts":[{"Title" : i.Title,"Content": i.Content,"Views":i.Views,"PostedAt":i.PostedAt,"RoomName":Room.query.filter_by(ID=i.RID).first().Title, "ID":i.Identifier} for i in GetPosts]
-            })
+                                                            })
         return res
 
 class GetRooms(Resource):
@@ -177,3 +176,24 @@ class GetRooms(Resource):
         else:
             RoomsData = Room.query.filter(Room.Year.in_([CurrentUser.Year, "ALL"])).filter(Room.Course.in_([CurrentUser.Course, "All"])).all()
         return jsonify({"RoomsList":[{"Title":i.Title,"Description":i.Description} for i in RoomsData], "Status":1 , "Msg":"Request Successful"})
+
+class GetUserPost(Resource):
+    @staticmethod
+    def post():
+        Data = ProfileDetailsData.parse_args()
+        Cookie = request.cookies.get("AuthToken")
+        CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
+        if not CurrentUser:
+            return jsonify({"Status":0,"Msg":"Invalid Token"})
+        OtherUser = User.query.filter_by(Username=Data["Username"]).first()
+        if not OtherUser:
+            return jsonify({"Status":0,"Msg":"No Such user Exists"})
+        _Posts = OtherUser.Posts
+        PostsToShow = []
+        for _Post in _Posts:
+            RoomOfPost = Room.query.filter_by(ID=_Post.RID).first()
+            if CurrentUser.Year == "ALL" and CurrentUser.Course == "ALL" :PostsToShow.append(_Post) 
+            elif RoomOfPost.Year in [CurrentUser.Year, "ALL"] and RoomOfPost.Course in [CurrentUser.Course, "ALL"]:
+                PostsToShow.append(_Post)
+        res = jsonify({"Status":1,"Posts":[{"Title":i.Title,"Content":i.Content,"ID": i.PublicID, "PostedAt": i.PostedAt} for i in PostsToShow], "Msg":"Request Successfull"})  
+        return res

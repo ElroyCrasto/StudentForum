@@ -118,14 +118,6 @@ Possible Messages
                         Bio: String,
                         DOB: String
                       },
-        Posts: List of JSON [{
-                        Title: String,
-                        Content: String,
-                        Views: Integer,
-                        PostedAt: Date,
-                        RoomName: String   
-                            }]
-
     }
 
 - **Possible Responses**
@@ -159,3 +151,33 @@ Possible Messages
 - Success Msg with Status 1
     - Request Successful
 
+### GetUserPosts
+- URL: http://localhost:5000/api/GetUserPosts
+- Method: Post
+- Login: Required
+- Cookie: Required
+- Arguments:
+    ```
+    {
+        "Username"    : String,
+    }
+- Response
+    ```
+    {
+        "Status"  : Integer,
+        "Posts" : List of JSON [{
+                                    Title: String,
+                                    Content: String,
+                                    ID : String,
+                                    PostedAt : String (DATE)
+                                    }],
+
+        "Msg" : String
+    }
+Possible Messages
+- Error Messages with Status 0
+    - Invalid Token
+    - No Such User Exists
+<br>
+- Success Msg with Status 1
+    - Request Successful
