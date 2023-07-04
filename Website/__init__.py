@@ -29,7 +29,6 @@ def CreateApp():
     from .APIResources import MakePost,UserSignUp, UsernameCheck
     API.add_resource(UserSignUp, "/api/SignUp")
     API.add_resource(UsernameCheck, "/api/UsernameCheck")
-    API.add_resource(MakePost, "/api/MakePost")
     CORS(App)
 
     # Special Route
