@@ -3,6 +3,53 @@
 SignUp
 {%endblock%}
 
+{% block head %}
+<script src='{{url_for("static", filename="Javascript/SignUpPage.js")}}'></script>
+{% endblock %}
+
 {%block body%}
 <h1 class="display-1 text-center">SignUp</h1>
+        <p><b>Enter Username:</b>
+        <input type="text" id="username" name="Username" placeholder="Username" onchange="CheckUserName()"><br>
+        
+        <b>Enter Firstname:</b>
+        <input type="text" id="firstname" name="Firstname" placeholder="Firstname" required><br>
+        
+        <b>Enter Lastname</b>
+        <input type="text" id="lastname" name="Lastname"placeholder="Lastname"required ><br>
+
+        <b>Enter Password</b>
+        <input type="password" id="password" name="Password" placeholder="Password" minlength="5" required><br>
+
+        <b>Confirm Password</b>
+        <input type="password" id="confirm_password" name="confirm_Password" placeholder="Confirm your Password" minlength="5" required><br>
+
+        <b>Enter Date of Birth</b>
+        <input type="date" id="dob" name="Dob" placeholder="Date-of-Birth"required> <br>
+        
+        <b>Please Select Your Academic Year</b> <br> 
+        <input type="radio" id="YearFy" name="Year" value="FY">
+        <label for="FY">FY</label> <br>
+
+        <input type="radio" id="YearSy" name="Year" value="SY" >
+        <label for="SY">SY</label> <br>
+
+        <input type="radio" id="YearTy" name="Year" value="TY" >
+        <label for="TY">TY</label> <br>
+
+        <b>Please Select Your Course</b> <br> 
+        <input type="radio" id="CS" name="Course" value="FY">
+        <label for="CS">CS</label> <br>
+
+        <input type="radio" id="IT" name="Course" value="SY" >
+        <label for="IT">IT</label> <br>
+
+        <button onclick="SignUpFormValidation()">Submit Your details</button>
+
+        <div>
+            <h1 id="error">
+
+            </h1>
+        </div>
+
 {%endblock%}
