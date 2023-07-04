@@ -22,14 +22,19 @@ def CreateApp():
 
     # Blueprints
     from .PageRoutes import PageRoute
+    from .PostRoutes import PostRoute
     App.register_blueprint(PageRoute)
+    App.register_blueprint(PostRoute)
 
     # API Configuration
     API = Api(App)
-    from .APIResources import MakePost,UserSignUp, UsernameCheck
+    from .APIResources import MakePost, UserSignUp, UsernameCheck, ProfileData, GetRooms, GetUserPost
     API.add_resource(UserSignUp, "/api/SignUp")
     API.add_resource(UsernameCheck, "/api/UsernameCheck")
     API.add_resource(MakePost, "/api/MakePost")
+    API.add_resource(ProfileData, "/api/GetProfile")
+    API.add_resource(GetRooms, "/api/GetRoomsData")
+    API.add_resource(GetUserPost, "/api/GetUserPost")
     CORS(App)
 
     # Special Route
@@ -40,9 +45,9 @@ def CreateApp():
 
     LoginManagerObj = LoginManager()
     LoginManagerObj.init_app(App)
+    LoginManagerObj.login_view = "PageRoute.LoginPage"
 
     @LoginManagerObj.user_loader
     def load_user(ID):
         return User.query.get(int(ID))
-
     return App

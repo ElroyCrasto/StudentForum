@@ -77,3 +77,5 @@ class Post(db.Model):
     def get_id(self):
         return self.ID
 
+    def __repr__(self):
+        return f"Title: {self.Title}, PublicID: {self.PublicID}"

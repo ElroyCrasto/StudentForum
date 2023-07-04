@@ -22,7 +22,7 @@
     ```
     {
         "Status" : Integer, #(Valid Options [0, 1])
-        "Message" : String, #Error message as well as Success
+        "Msg" : String, #Error message as well as Success
     }
 - Possible Messages
     **Error Messages with Status 0**
@@ -36,7 +36,7 @@
     - Invalid SecurityQuestion
     - An Error Occured While Creating User
 
-    **Success Message with Status 1**
+    **Success Msg with Status 1**
     - User Registered Successfully 
 
 ### UsernameCheck
@@ -52,13 +52,13 @@
     ```
     {
         "Status"  : Integer,
-        "Message" : String,
+        "Msg" : String,
     }
 Possible Messages
 - Error Messages with Status 0
     - Username Already Exists Or Isnt a Valid Username
 <br>
-- Success Message with Status 1
+- Success Msg with Status 1
     - Username is Available
 
 ### MakePost
@@ -79,7 +79,7 @@ Possible Messages
     ```
     {
         Status : Integer,
-        Message: String,
+        Msg: String,
     }
 
 - **Possible Responses**
@@ -94,3 +94,90 @@ Possible Messages
 
     Forbidden Response (Status: 2)
     - You Do Not Have Access to Post in This Room
+
+### GetProfile
+- URL: http://localhost:5000/api/GetProfile
+- Method: Post
+- Cookie: Required
+- Login: Required 
+- Arguments:
+    ```
+    {
+        "Username"    : String,
+    }
+
+- Response Format
+    ```
+    {
+        Status : Integer,
+        Profile: JSON { Username: String,
+                        FirstName: String,
+                        LastName: String,
+                        Year: String,
+                        Course: String,
+                        Bio: String,
+                        DOB: String
+                      },
+    }
+
+- **Possible Responses**
+    Success Response (Status:1)
+    - User Data
+
+    Error Response (Status: 0)
+    - Invalid Token
+    - No Such User
+
+### GetRooms
+- URL: http://localhost:5000/api/GetRoomsData
+- Method: GET
+- Login: Required
+- Cookie: Required
+- Arguments: None
+- Response
+    ```
+    {
+        "Status"  : Integer,
+        "RoomsList" : List of JSON [{
+                                    Title: String,
+                                    Description: String
+                                    }],
+        "Msg" : String
+    }
+Possible Messages
+- Error Messages with Status 0
+    - Invalid Token
+<br>
+- Success Msg with Status 1
+    - Request Successful
+
+### GetUserPosts
+- URL: http://localhost:5000/api/GetUserPosts
+- Method: Post
+- Login: Required
+- Cookie: Required
+- Arguments:
+    ```
+    {
+        "Username"    : String,
+    }
+- Response
+    ```
+    {
+        "Status"  : Integer,
+        "Posts" : List of JSON [{
+                                    Title: String,
+                                    Content: String,
+                                    ID : String,
+                                    PostedAt : String (DATE)
+                                    }],
+
+        "Msg" : String
+    }
+Possible Messages
+- Error Messages with Status 0
+    - Invalid Token
+    - No Such User Exists
+<br>
+- Success Msg with Status 1
+    - Request Successful
