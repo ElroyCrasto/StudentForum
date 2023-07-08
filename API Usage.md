@@ -140,7 +140,8 @@ Possible Messages
         "Status"  : Integer,
         "RoomsList" : List of JSON [{
                                     Title: String,
-                                    Description: String
+                                    Description: String,
+                                    PublicID: String 
                                     }],
         "Msg" : String
     }
