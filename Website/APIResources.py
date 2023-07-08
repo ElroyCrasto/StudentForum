@@ -175,7 +175,7 @@ class GetRooms(Resource):
         if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": RoomsData = Room.query.all()
         else:
             RoomsData = Room.query.filter(Room.Year.in_([CurrentUser.Year, "ALL"])).filter(Room.Course.in_([CurrentUser.Course, "All"])).all()
-        return jsonify({"RoomsList":[{"Title":i.Title,"Description":i.Description} for i in RoomsData], "Status":1 , "Msg":"Request Successful"})
+        return jsonify({"RoomsList":[{"Title":i.Title,"Description":i.Description, "PublicID":i.PublicID} for i in RoomsData], "Status":1 , "Msg":"Request Successful"})
 
 class GetUserPost(Resource):
     @staticmethod

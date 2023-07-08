@@ -43,6 +43,7 @@ class Room(db.Model):
 
     # Columns
     ID = db.Column("ID", db.Integer, primary_key=True)
+    PublicID = db.Column("PublicID", db.String, unique=True, nullable=True)
     Title = db.Column("Title", db.String, nullable=True)
     Description = db.Column("Description", db.String)
     Course = db.Column("Course", db.String)
