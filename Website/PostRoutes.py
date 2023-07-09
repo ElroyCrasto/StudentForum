@@ -32,3 +32,11 @@ def CreateRooms():
         return "Rooms and Admin Created"
     except Exception as Ex:
         return f"{Ex}" + f"<br><h1>Rooms or Admin User Probably already exists.</h1>"
+    
+@PostRoute.route("/Rooms")
+def ShowRooms():
+    return render_template("Rooms.html")
+
+@PostRoute.route("/Room")
+def DisplayRoom():
+    return render_template("RoomPage.html")
