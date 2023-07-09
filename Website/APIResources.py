@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import jsonify, request
-from .ApiDataParser import NewUsernameCheck, UserSignUpData, MakePostData, ProfileDetailsData
+from .ApiDataParser import NewUsernameCheck, UserSignUpData, MakePostData, ProfileDetailsData, RoomsData
 from .DatabaseModels import User, Post, Room
 from . import Database as db
 import re, datetime, random, string
@@ -111,22 +111,23 @@ class MakePost(Resource):
         # Type Validation
         Type = Data["Type"].strip()
         if Type not in ["Question","General"]:
-            return jsonify({"Staus":0,"Msg":"Invalid Post Type!"})
+            return jsonify({"Status":0,"Msg":"Invalid Post Type!"})
 
         # Token Validation
-        if not Cookie: return({"Staus":0, "Msg":"Invalid Token"})
+        if not Cookie: return({"Status":0, "Msg":"Invalid Token"})
         CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
         if not CurrentUser:
-            res = jsonify({"Staus":0,"Msg":"Invalid Token"})
+            res = jsonify({"Status":0,"Msg":"Invalid Token"})
             return res
         
         # User-Room Privellege Validation
         _Room = Room.query.filter_by(Title=Data["RoomName"].strip()).first()
         if not _Room:
-            return jsonify({"Staus":0,"Msg":"Room Does Not Exist!"})
+            return jsonify({"Status":0,"Msg":"Room Does Not Exist!"})
         else:
-            if not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
-               return jsonify({"Staus":2,"Msg":"You Do Not Have Access to Post in This Room"})
+            if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": pass
+            elif not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
+               return jsonify({"Status":2,"Msg":"You Do Not Have Access to Post in This Room"})
         
         # Saving Post To Database
         try:
@@ -134,10 +135,10 @@ class MakePost(Resource):
             db.session.add(NewPost)
             db.session.commit()
         except :
-            return jsonify({"Staus":0,"Msg":"An Error Occured!"})
+            return jsonify({"Status":0,"Msg":"An Error Occured!"})
 
         # Response    
-        res = jsonify({"Staus":1,"Msg":"Post Created Successfully!"})
+        res = jsonify({"Status":1,"Msg":"Post Created Successfully!"})
         return res
 
 class ProfileData(Resource):
@@ -145,14 +146,14 @@ class ProfileData(Resource):
     def post():
         Data = ProfileDetailsData.parse_args()
         Cookie = request.cookies.get("AuthToken")
-        if not Cookie: return jsonify({"Staus":0, "Msg":"Invalid Token"})
+        if not Cookie: return jsonify({"Status":0, "Msg":"Invalid Token"})
         CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
         if not CurrentUser:
-            res = jsonify({"Staus":0,"Msg":"Invalid Token"})
+            res = jsonify({"Status":0,"Msg":"Invalid Token"})
             return res
         UserDetails = User.query.filter_by(Username=Data["Username"]).first()
         if not UserDetails:
-            res = jsonify({"Staus":0,"Msg":"No Such User"})
+            res = jsonify({"Status":0,"Msg":"No Such User"})
             return res
         GetPosts = UserDetails.Posts
         res = jsonify({"Status": 1, "Profile": {"Username": UserDetails.Username,
@@ -169,6 +170,7 @@ class GetRooms(Resource):
     @staticmethod
     def get():
         Cookie = request.cookies.get("AuthToken")
+        if not Cookie: return jsonify({"Status":0, "Msg":"Invalid Token"})
         CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
         if not CurrentUser:
             return jsonify({"Status":0,"Msg":"Invalid Token"})
@@ -182,6 +184,7 @@ class GetUserPost(Resource):
     def post():
         Data = ProfileDetailsData.parse_args()
         Cookie = request.cookies.get("AuthToken")
+        if not Cookie: return jsonify({"Status":0, "Msg":"Invalid Token"})
         CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
         if not CurrentUser:
             return jsonify({"Status":0,"Msg":"Invalid Token"})
@@ -196,4 +199,30 @@ class GetUserPost(Resource):
             elif RoomOfPost.Year in [CurrentUser.Year, "ALL"] and RoomOfPost.Course in [CurrentUser.Course, "ALL"]:
                 PostsToShow.append(_Post)
         res = jsonify({"Status":1,"Posts":[{"Title":i.Title,"Content":i.Content,"ID": i.PublicID, "PostedAt": i.PostedAt} for i in PostsToShow], "Msg":"Request Successfull"})  
+        return res
+
+class GetRoomPosts(Resource):
+    @staticmethod
+    def post():
+        # Handling Data
+        Data = RoomsData.parse_args()
+        Cookie = request.cookies.get("AuthToken")
+        # Cookie Check
+        if not Cookie: return jsonify({"Status":0, "Msg":"Invalid Token"})
+        RoomID = Data["PublicID"]
+        
+        # UserVerification
+        CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
+        if not CurrentUser:
+            return jsonify({"Status":0,"Msg":"Invalid Token"})
+        _Room = Room.query.filter_by(PublicID=RoomID).first()
+        
+        # RoomID verification
+        if not _Room:
+            return jsonify({"Status":0,"Msg":"No Such Room Exists"})
+        if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": pass
+        elif not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
+            return jsonify({"Status":2,"Msg":"You Do Not Have Access to This Room"})
+        Posts = _Room.PID
+        res = jsonify({"Status":1, "Posts":[{"Title":i.Title,"Content":i.Content,"Views":i.Views,"PublicID":i.PublicID,"User":User.query.filter_by(ID=i.UID).first().Username, "PostedAt":i.PostedAt, "Type":i.Type} for i in Posts]})
         return res

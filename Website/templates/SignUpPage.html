@@ -44,6 +44,20 @@ SignUp
         <input type="radio" id="IT" name="Course" value="SY" >
         <label for="IT">IT</label> <br>
 
+        <label for="cars">Select a Security Question:</label>
+
+        <select name="questions" id="questions">
+        <option value="none" selected disabled hidden>Select an Option</option>
+        <option value="Question">Question compulsory</option>
+        <option value="Question1">Question compulsory one</option>
+        </select><br>
+
+        <b>Enter Answer:</b>
+        <input type="text" id="answer" name="answer" placeholder="Answer" required><br>
+
+
+        <br><br>
+
         <button onclick="SignUpFormValidation()">Submit Your details</button>
 
         <div>
