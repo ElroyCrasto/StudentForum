@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+
+{% block title %}
+Rooms
+{%endblock%}
+
+{%block head%}
+<script type="text/javascript" src="{{url_for('static',filename='Javascript/RoomsPage.js')}}"></script>
+{%endblock%}
+
+{%block body%}
+<body onload="DisplayRooms()">
+</body>
+{%endblock%}
