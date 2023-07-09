@@ -111,22 +111,22 @@ class MakePost(Resource):
         # Type Validation
         Type = Data["Type"].strip()
         if Type not in ["Question","General"]:
-            return jsonify({"Staus":0,"Msg":"Invalid Post Type!"})
+            return jsonify({"Status":0,"Msg":"Invalid Post Type!"})
 
         # Token Validation
-        if not Cookie: return({"Staus":0, "Msg":"Invalid Token"})
+        if not Cookie: return({"Status":0, "Msg":"Invalid Token"})
         CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
         if not CurrentUser:
-            res = jsonify({"Staus":0,"Msg":"Invalid Token"})
+            res = jsonify({"Status":0,"Msg":"Invalid Token"})
             return res
         
         # User-Room Privellege Validation
         _Room = Room.query.filter_by(Title=Data["RoomName"].strip()).first()
         if not _Room:
-            return jsonify({"Staus":0,"Msg":"Room Does Not Exist!"})
+            return jsonify({"Status":0,"Msg":"Room Does Not Exist!"})
         else:
             if not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
-               return jsonify({"Staus":2,"Msg":"You Do Not Have Access to Post in This Room"})
+               return jsonify({"Status":2,"Msg":"You Do Not Have Access to Post in This Room"})
         
         # Saving Post To Database
         try:
@@ -134,10 +134,10 @@ class MakePost(Resource):
             db.session.add(NewPost)
             db.session.commit()
         except :
-            return jsonify({"Staus":0,"Msg":"An Error Occured!"})
+            return jsonify({"Status":0,"Msg":"An Error Occured!"})
 
         # Response    
-        res = jsonify({"Staus":1,"Msg":"Post Created Successfully!"})
+        res = jsonify({"Status":1,"Msg":"Post Created Successfully!"})
         return res
 
 class ProfileData(Resource):
@@ -145,14 +145,14 @@ class ProfileData(Resource):
     def post():
         Data = ProfileDetailsData.parse_args()
         Cookie = request.cookies.get("AuthToken")
-        if not Cookie: return jsonify({"Staus":0, "Msg":"Invalid Token"})
+        if not Cookie: return jsonify({"Status":0, "Msg":"Invalid Token"})
         CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
         if not CurrentUser:
-            res = jsonify({"Staus":0,"Msg":"Invalid Token"})
+            res = jsonify({"Status":0,"Msg":"Invalid Token"})
             return res
         UserDetails = User.query.filter_by(Username=Data["Username"]).first()
         if not UserDetails:
-            res = jsonify({"Staus":0,"Msg":"No Such User"})
+            res = jsonify({"Status":0,"Msg":"No Such User"})
             return res
         GetPosts = UserDetails.Posts
         res = jsonify({"Status": 1, "Profile": {"Username": UserDetails.Username,
