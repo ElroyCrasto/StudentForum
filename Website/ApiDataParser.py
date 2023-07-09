@@ -29,3 +29,6 @@ MakePostData.add_argument("RoomName", type=str, help="Invalid Room", required=Tr
 ProfileDetailsData = reqparse.RequestParser()
 ProfileDetailsData.add_argument("Username", type=str, required=True) 
 
+# Checks For Valid RoomID
+RoomsData = reqparse.RequestParser()
+RoomsData.add_argument("PublicID", type=str,help="Room Id Required", required=True)
