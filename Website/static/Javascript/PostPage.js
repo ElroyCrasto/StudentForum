@@ -3,6 +3,17 @@ var post = document.getElementById("post");
 var req = new XMLHttpRequest();
 req.open("POST", "/api/GetPostData");
 req.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+req.onreadystatechange = function(){
+    if(req.readyState!=4){
+        $(document).ready(function(){
+            $("#loading").show();
+        });
+    }else{
+        $(document).ready(function(){
+            $("#loading").hide();
+    });
+}
+}
 req.onload = function(){
     var response = JSON.parse(req.responseText); 
     if (response.Status == 1){

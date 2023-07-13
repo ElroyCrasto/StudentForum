@@ -34,7 +34,7 @@ document.getElementById("btn").addEventListener("click", function() {
         alert("Only letters, digits, spaces, and the characters , . ? ( ) ! are allowed in the content!");
     } else if (type === "Default") {
         alert("Please select a question type");
-    };
+    }else{
 
 
   var data = {
@@ -43,8 +43,19 @@ document.getElementById("btn").addEventListener("click", function() {
     Type: type,
     RoomName: room
   };
-  
+
   var makepost = new XMLHttpRequest();
+  makepost.onreadystatechange = function(){
+    if(makepost.readyState!=4){
+        $(document).ready(function(){
+            $("#loading").show();
+        });
+    }else{
+        $(document).ready(function(){
+            $("#loading").hide();
+    });
+}
+};
   makepost.open("POST", "/api/MakePost");
   makepost.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
   makepost.onload = function() {
@@ -57,4 +68,5 @@ document.getElementById("btn").addEventListener("click", function() {
       }
   };
   makepost.send(JSON.stringify(data));
-}); 
+
+}}); 
