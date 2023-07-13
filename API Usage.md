@@ -216,7 +216,7 @@ Possible Messages
 - Success Msg with Status 1
     - Request Successful
 
-### GetUserPosts
+### GetPost
 - URL: http://localhost:5000/api/GetPostData
 - Method: Post
 - Login: Required

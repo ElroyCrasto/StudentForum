@@ -10,7 +10,6 @@
 
 function renderroom(data){
 
-    var htmlstring = "";
     var postroom = data.Title;
     var option = document.createElement("option");
     option.setAttribute("value", postroom);
