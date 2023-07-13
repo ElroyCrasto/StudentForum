@@ -182,3 +182,36 @@ Possible Messages
 <br>
 - Success Msg with Status 1
     - Request Successful
+
+
+### GetRoomPosts
+- URL: http://localhost:5000/api/GetUserPosts
+- Method: Post
+- Login: Required
+- Cookie: Required
+- Arguments:
+    ```
+    {
+        "PublicID"    : String,
+    }
+- Response
+    ```
+    {
+        "Status"  : Integer,
+        "Posts" : List of JSON [{   "Title":String,
+                                    "Content":String,
+                                    "Views":int,
+                                    "PublicID": String,
+                                    "User": String,
+                                    "PostedAt": Date,
+                                    "Type": String}],
+
+        "Msg" : String
+    }
+Possible Messages
+- Error Messages with Status 0
+    - Invalid Token
+    - No Such User Exists
+<br>
+- Success Msg with Status 1
+    - Request Successful
