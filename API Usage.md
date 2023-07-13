@@ -215,3 +215,39 @@ Possible Messages
 <br>
 - Success Msg with Status 1
     - Request Successful
+
+### GetUserPosts
+- URL: http://localhost:5000/api/GetPostData
+- Method: Post
+- Login: Required
+- Cookie: Required
+- Arguments:
+    ```
+    {
+        "PublicID"    : String,
+    }
+- Response
+    ```
+    {   
+        "Status":1,
+        "Title": String,
+        "Content": String,
+        "Views": String,
+        "PublicID":String,
+        "User": String,
+        "PostedAt":String,
+        "Type": String,
+        "Msg": String
+    }
+
+Possible Messages
+- Error Messages with Status 0
+    - Invalid Token
+<br>
+
+- Error Message with Status 2    
+    - You Do not have access to this post
+<br>
+
+- Success Msg with Status 1
+    - Request Successful

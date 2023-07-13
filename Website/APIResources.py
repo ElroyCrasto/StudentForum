@@ -155,7 +155,6 @@ class ProfileData(Resource):
         if not UserDetails:
             res = jsonify({"Status":0,"Msg":"No Such User"})
             return res
-        GetPosts = UserDetails.Posts
         res = jsonify({"Status": 1, "Profile": {"Username": UserDetails.Username,
                                                 "FirstName": UserDetails.FirstName,
                                                 "LastName": UserDetails.LastName,
@@ -225,4 +224,25 @@ class GetRoomPosts(Resource):
             return jsonify({"Status":2,"Msg":"You Do Not Have Access to This Room"})
         Posts = _Room.PID
         res = jsonify({"Status":1, "Posts":[{"Title":i.Title,"Content":i.Content,"Views":i.Views,"PublicID":i.PublicID,"User":User.query.filter_by(ID=i.UID).first().Username, "PostedAt":i.PostedAt, "Type":i.Type} for i in Posts]})
+        return res
+
+class GetPost(Resource):
+    @staticmethod
+    def post():
+        Data = RoomsData.parse_args()
+        Cookie = request.cookies.get("AuthToken")
+        if not Cookie: return jsonify({"Status":0, "Msg":"Invalid Token"})
+
+        CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
+        if not CurrentUser:return jsonify({"Status":0,"Msg":"Invalid Token"})
+
+        _Post = Post.query.filter_by(PublicID=Data["PublicID"]).first()
+        if not _Post:return jsonify({"Status":0, "Msg":"Invalid Token"})
+
+        _Room = Room.query.filter_by(ID=_Post.RID).first()
+        if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": pass
+        elif not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
+            return jsonify({"Status":2,"Msg":"You Do Not Have Access to This Post"})
+        
+        res = jsonify({"Status":1, "Title":_Post.Title,"Content":_Post.Content,"Views":_Post.Views,"PublicID":_Post.PublicID,"User":User.query.filter_by(ID=_Post.UID).first().Username, "PostedAt":_Post.PostedAt, "Type":_Post.Type, "Msg": "Request Successfull" })
         return res
