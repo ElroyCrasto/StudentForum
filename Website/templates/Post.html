@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "template.html" %}
+
+{% block title %}
+Post Page
+{%endblock%}
+
+{%block head%}
+<script defer type="text/javascript" src="{{url_for('static',filename='Javascript/PostPage.js')}}"></script>
+{%endblock%}
+
+{%block body%}
+<div id="post"> 
+
+<div id="title"> </div>
+
+<div id="content"></div>
+
+<div id="user"> 
+    <a id="userlink"></a>
+</div>
+
+<div id="type"></div>
+
+<div id="postedat"></div>
+
+<div id="views"></div>
+
+</div>
+
+{%endblock%}

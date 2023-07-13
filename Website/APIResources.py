@@ -237,7 +237,7 @@ class GetPost(Resource):
         if not CurrentUser:return jsonify({"Status":0,"Msg":"Invalid Token"})
 
         _Post = Post.query.filter_by(PublicID=Data["PublicID"]).first()
-        if not _Post:return jsonify({"Status":0, "Msg":"Invalid Token"})
+        if not _Post:return jsonify({"Status":0, "Msg":"No Such Post"})
 
         _Room = Room.query.filter_by(ID=_Post.RID).first()
         if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": pass

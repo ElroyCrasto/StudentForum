@@ -44,11 +44,11 @@ document.getElementById("btn").addEventListener("click", function() {
     RoomName: room
   };
   
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/api/MakePost");
-  xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-  xhr.onload = function() {
-      var response = JSON.parse(xhr.responseText);
+  var makepost = new XMLHttpRequest();
+  makepost.open("POST", "/api/MakePost");
+  makepost.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  makepost.onload = function() {
+      var response = JSON.parse(makepost.responseText);
       console.log(response);
       if(response.Status == 1){
       alert("Post Created Successfully!!!");
@@ -56,5 +56,5 @@ document.getElementById("btn").addEventListener("click", function() {
         console.log(response.Msg);
       }
   };
-  xhr.send(JSON.stringify(data));
+  makepost.send(JSON.stringify(data));
 }); 
