@@ -5,8 +5,15 @@ Room Page
 {%endblock%}
 
 {%block head%}
+<script type="text/javascript" src="{{url_for('static',filename='Javascript/RoomPage.js')}}"></script>
 {%endblock%}
 
 {%block body%}
-
+<body onload="ShowRoomsDetails()">
+    <div id="Posts">
+        <div class="spinner-border text-danger" role="status" id="loading">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</body>
 {%endblock%}

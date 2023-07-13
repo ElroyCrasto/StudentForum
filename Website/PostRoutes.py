@@ -37,6 +37,6 @@ def CreateRooms():
 def ShowRooms():
     return render_template("Rooms.html")
 
-@PostRoute.route("/Room")
+@PostRoute.route("/RoomPage")
 def DisplayRoom():
     return render_template("RoomPage.html")
