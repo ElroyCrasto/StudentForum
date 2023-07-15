@@ -57,6 +57,7 @@ class UserSignUp(Resource):
         
         # Username Check
         if (SpecialCharCheck(Info["Username"])) == False: return False,"Username Cannot Contain Special Charecters"
+        if (Info["Username"].find(" ")) == -1: return False,"Username Cannot Contain Special Charecters"
         CheckUsername = User.query.filter_by(Username=Info["Username"].strip()).first()
         if CheckUsername: return False, "Invalid Username"
         if (LengthCheck(8,Info["Username"].strip()) == False): return False, "Length of Username has to be greater than 8"
@@ -66,7 +67,9 @@ class UserSignUp(Resource):
         if (SpecialCharCheck(Info["LastName"].strip())) == False: return False,"LastName Cannot Contain Special Charecters"
         if (LengthCheck(1,Info["FirstName"].strip()) == False): return False, "Length of FirstName has to be greater than 1"
         if (LengthCheck(1,Info["Username"].strip()) == False): return False, "Length of LastName has to be greater than 1"
-        
+        if not(Info["FirstName"].find(" ")) == -1: return False,"Username Cannot Contain Special Charecters"
+        if not(Info["LastName"].find(" ")) == -1: return False,"Username Cannot Contain Special Charecters"
+
         # Password limit Check
         if (LengthCheck(8,Info["Password"]) == False): return False, "Length of Password has to be greater than 8"
 
@@ -91,6 +94,8 @@ class UsernameCheck(Resource):
     @staticmethod
     def post():
         Data = NewUsernameCheck.parse_args()
+        if not (Data['Username'].strip().find(" ") == -1):
+            return jsonify({"Status":0,"Msg":"Username Cannot Contain Spaces"})
         if not (LengthCheck(8,Data["Username"].strip())):
             return jsonify({"Status":0,"Msg":"Username Already Exists Or Isnt a Valid Username"})
         check = User.query.filter_by(Username=Data["Username"]).first()
