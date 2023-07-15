@@ -57,7 +57,7 @@ class UserSignUp(Resource):
         
         # Username Check
         if (SpecialCharCheck(Info["Username"])) == False: return False,"Username Cannot Contain Special Charecters"
-        if (Info["Username"].find(" ")) == -1: return False,"Username Cannot Contain Special Charecters"
+        if not(Info["Username"].find(" ")) == -1: return False,"Username Cannot Contain Special Charecters"
         CheckUsername = User.query.filter_by(Username=Info["Username"].strip()).first()
         if CheckUsername: return False, "Invalid Username"
         if (LengthCheck(8,Info["Username"].strip()) == False): return False, "Length of Username has to be greater than 8"
