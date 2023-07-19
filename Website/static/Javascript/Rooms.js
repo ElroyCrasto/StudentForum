@@ -3,6 +3,17 @@ var Rooms = document.getElementById('Rooms');
 function DisplayRooms(){
     var GetReqest = new XMLHttpRequest();
     GetReqest.open('GET', '/api/GetRoomsData');
+    GetReqest.onreadystatechange = function(){
+        if(GetReqest.readyState!=4){
+            $(document).ready(function(){
+                $("#loading").show();
+            });
+        }else{
+            $(document).ready(function(){
+                $("#loading").hide();
+        });
+    }
+}
     GetReqest.onload = function(){
         var GetData = JSON.parse(GetReqest.responseText);
         console.log(GetData);
