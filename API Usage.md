@@ -186,7 +186,7 @@ Possible Messages
 
 
 ### GetRoomPosts
-- URL: http://localhost:5000/api/GetUserPosts
+- URL: http://localhost:5000/api/GetUserPost
 - Method: Post
 - Login: Required
 - Cookie: Required

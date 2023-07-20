@@ -166,7 +166,8 @@ class ProfileData(Resource):
                                                 "Year": UserDetails.Year,
                                                 "Course": UserDetails.Course,
                                                 "Bio": UserDetails.Bio,
-                                                "DOB": UserDetails.DOB},
+                                                "DOB": UserDetails.DOB,
+                                                "JoinedAt":UserDetails.JoinedAt}
                                                             })
         return res
 

@@ -1,13 +1,95 @@
 {% extends "template.html" %}
 
 {% block title %}
-Login
+Profile
 {%endblock%}
 
 {%block head%}
-<script defer type="text/javascript" src="{{url_for('static',filename='Javascript/LoginValidate.js')}}"></script>
+<script defer type="text/javascript" src="{{url_for('static',filename='Javascript/ProfilePage.js')}}"></script>
 {%endblock%}
 
 {%block body%}
-Hello World
+<body onload="GetProfile();GetUserPost()">
+<div class="container-fluid">
+<div class="container bg-primary" id="heading">
+    <div>
+        <h1><b>Profile</b></h1>
+        <h3><b><p id="username"> </p></b></h3>
+    </div>
+</div>
+
+<div class="container bg-primary" id="details">
+    <div class="name" id="name">
+        <h3><p id="firstname"> </p></h3> <h3><p id="lastname"> </p></h3>
+    </div>
+    <br>
+    <div class="detail" id="name">
+        <h3><p id="year">Year: </p></h3> <h3><p id="course">Course: </p></h3>
+    </div>
+</div>
+
+<style>
+
+    #heading{
+        margin-top: 3%;
+        padding-top: 5%;
+        padding-bottom: 1%;
+        padding-left: 5%;
+        color: floralwhite; 
+    }
+
+    h1{
+        font-size: 80px;
+    }
+
+    h3{
+        font-size: 40px;
+    }
+
+    #details{
+        margin-top: 2%;
+    }
+
+    #name{
+        margin-top: 3%;
+        padding-top: 1%;
+        padding-left: 5%;
+        color: floralwhite;
+        justify-content: space-between;
+        display: inline-flex;
+    }
+
+    #detail{
+        padding-bottom: 1%;
+        padding-left: 5%;
+        color: floralwhite;
+        justify-content: space-between;
+        display: inline-flex;
+    }
+
+    #firstname{
+        font-size: 60px;
+        text-transform: capitalize;
+    }
+
+    #lastname{
+        padding-left: 10px;
+        font-size: 60px;
+        text-transform: capitalize;
+    }
+
+    #year{
+        font-size: 50px;
+        text-transform: capitalize; 
+    }
+
+    #course{
+        padding-left: 10px;
+        font-size: 50px;
+        text-transform: capitalize;
+    }
+
+</style>
+
+</body> 
 {%endblock%}

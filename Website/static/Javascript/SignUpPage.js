@@ -196,7 +196,7 @@ function SendData() {
 function CheckUserName() { // This Function Checks If the username entered is available or not
     var OurUserName = new XMLHttpRequest();
     var tick = document.getElementById('checker');
-    OurUserName.open('POST', 'http://localhost:5000/api/UsernameCheck', true);
+    OurUserName.open('POST', '/api/UsernameCheck', true);
     OurUserName.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
     OurUserName.onload = function () {
         var Reply = JSON.parse(this.responseText);

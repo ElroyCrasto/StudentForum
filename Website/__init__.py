@@ -39,7 +39,7 @@ def CreateApp():
     API.add_resource(GetUserPost, "/api/GetUserPost")
     API.add_resource(GetRoomPosts, "/api/GetRoomPosts")
     API.add_resource(GetPost, "/api/GetPostData")
-    API.add_resource(websiteinfo, "/api/WebsiteInfo")
+    API.add_resource(WebsiteInfo, "/api/WebsiteInfo")
     CORS(App)
 
     # Special Route
