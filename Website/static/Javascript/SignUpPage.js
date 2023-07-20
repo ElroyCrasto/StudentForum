@@ -19,10 +19,11 @@ function SignUpFormValidation() {
     var SecurityAnswers = SecurityAnswer();
 
     if (UserNameCheck && FirstNameCheck && LastNameCheck && PassWordCheck && SecurityAnswers && SecurityQuestions) {
+        $('#spinner-div').removeClass("hidden");
+        $('#spinner-div').addClass("show");
         console.log("Validation Successfull");
         SendData();
     }
-
 }
 
 function CheckValidation(VariableName) {
@@ -68,6 +69,10 @@ function UserNameValidation() {
     }
     else if (UserName.match(Space)) {
         ErrorDisplay("No white spaces allowed in between");
+        return false;
+    }
+    else if(UserName.length < 8) {
+        ErrorDisplay("Length of username has to be greater than 8");
         return false;
     }
     else {
@@ -162,6 +167,7 @@ function SendData() {
         SecurityAnswer: _SecurityAnswer
     }
 
+    
     var OurRequest = new XMLHttpRequest();
     OurRequest.open('POST', 'http://localhost:5000/api/SignUp', true)
     OurRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
@@ -169,17 +175,27 @@ function SendData() {
         var Response = JSON.parse(this.responseText);
         console.log(Response.Msg);
         if (Response.Status == 1) {
-            alert("User Registered Successfully")
+            $('#spinner-div').removeClass("show");
+            $('#spinner-div').addClass("hidden");
+            setTimeout(function() {
+                alert(Response.Msg);
+            },20)
+            window.location.replace(window.location.origin + "/Login");
         }
         else {
-            alert(Response.Msg)
-        }
+            $('#spinner-div').removeClass("show");
+            $('#spinner-div').addClass("hidden");
+            setTimeout(function() {
+                alert(Response.Msg);
+            },20)
+        };
     }
     OurRequest.send(JSON.stringify(payload)); // SendData() Function Ends Here
 }
 
 function CheckUserName() { // This Function Checks If the username entered is available or not
     var OurUserName = new XMLHttpRequest();
+    var tick = document.getElementById('checker');
     OurUserName.open('POST', 'http://localhost:5000/api/UsernameCheck', true);
     OurUserName.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
     OurUserName.onload = function () {
@@ -187,9 +203,13 @@ function CheckUserName() { // This Function Checks If the username entered is av
         console.log(Reply);
         console.log(Reply.Msg);
         if (Reply.Status == 0) {
+            $("#cross").show();
+            $("#tick").hide();
             console.log("Username already taken ");
         }
         else {
+            $("#cross").hide();
+            $("#tick").show();
             console.log("Username not taken");
         }
     }

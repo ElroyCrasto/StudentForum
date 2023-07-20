@@ -37,18 +37,22 @@ function RenderHTML(data){
     var Post = document.createElement("div");
     Post.setAttribute("id", "Post");
     var Title = document.createElement("h3");
+    var TitleLink = document.createElement("a");
+    TitleLink.setAttribute("href", "/Post?p="+data.PublicID);
     var Content = document.createElement("p");
     var Views = document.createElement("div");
-    var User = document.createElement("span");
+    var User = document.createElement("a");
+    User.setAttribute("href", "/Profile?u="+data.User);
     var PostedAt = document.createElement("span");
 
-    Title.insertAdjacentHTML("beforeend",data.Title);
+    TitleLink.insertAdjacentHTML("beforeend",data.Title);
     Content.insertAdjacentHTML("beforeend",data.Content);
     Views.insertAdjacentHTML("beforeend",data.Views);
     User.insertAdjacentHTML("beforeend",data.User);
     PostedAt.insertAdjacentHTML("beforeend",data.PostedAt);
-
+    
     Post.insertAdjacentElement("beforeend",Title);
+    Title.insertAdjacentElement("beforeend",TitleLink);
     Post.insertAdjacentElement("beforeend",Content);
     Post.insertAdjacentElement("beforeend",Views);
     Post.insertAdjacentElement("beforeend",User);

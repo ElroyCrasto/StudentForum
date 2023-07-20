@@ -23,8 +23,10 @@ def CreateApp():
     # Blueprints
     from .PageRoutes import PageRoute
     from .PostRoutes import PostRoute
+    from .AccountRoutes import AccountRoute
     App.register_blueprint(PageRoute)
     App.register_blueprint(PostRoute)
+    App.register_blueprint(AccountRoute)
 
     # API Configuration
     API = Api(App)

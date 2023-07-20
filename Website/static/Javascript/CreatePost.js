@@ -63,6 +63,7 @@ document.getElementById("btn").addEventListener("click", function() {
       console.log(response);
       if(response.Status == 1){
       alert("Post Created Successfully!!!");
+      window.location.replace(window.location.origin + "/Rooms");
       }else{
         console.log(response.Msg);
       }
