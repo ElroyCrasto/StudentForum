@@ -1,5 +1,3 @@
-var Rooms = document.getElementById('Rooms');
-
 function DisplayRooms(){
     var GetReqest = new XMLHttpRequest();
     GetReqest.open('GET', '/api/GetRoomsData');
@@ -17,17 +15,40 @@ function DisplayRooms(){
     GetReqest.onload = function(){
         var GetData = JSON.parse(GetReqest.responseText);
         console.log(GetData);
-        RenderHTML(GetData);
+        GetData.RoomsList.forEach(RenderHTML);
     };
     GetReqest.send();
 };
 
 function RenderHTML(data){
-    var TitleString, DescriptionString;
+    //setting HTML elements
+    var Rooms = document.createElement("div");
+    Rooms.setAttribute("class", "Rooms");
 
-    for(i=0; i<data.RoomsList.length; i++){
-        TitleString = "<div id='Rooms'>" + "<H3><a href='/RoomPage?r="+data.RoomsList[i].PublicID+"'>"+data.RoomsList[i].Title+"</a></H3>";
-        DescriptionString = "<p>"+data.RoomsList[i].Description+"</p>"+ "</div>";
-        document.write(TitleString, DescriptionString)
-    }
-}
+    var Title = document.createElement("h3");
+    Title.setAttribute("class", "Title");
+    var TitleLink = document.createElement("a");
+    TitleLink.setAttribute("href", "/RoomPage?r="+data.PublicID);
+    TitleLink.setAttribute("class", "TitleLink");
+
+    var Description = document.createElement("p");
+    Description.setAttribute("class", "Description");
+
+    var PostCount = document.createElement("p");
+    PostCount.setAttribute("class", "Postcount");
+
+    //Passing values to elements
+    TitleLink.insertAdjacentHTML("beforeend",data.Title);
+    Description.insertAdjacentHTML("beforeend",data.Description);    
+    PostCount.insertAdjacentHTML("beforeend","Posts: "+data.Posts);
+
+    //Passing all Elements in main div
+    Rooms.insertAdjacentElement("beforeend",Title);
+    Title.insertAdjacentElement("beforeend",TitleLink);
+    Rooms.insertAdjacentElement("beforeend",Description);
+    Rooms.insertAdjacentElement("beforeend",PostCount);
+
+    //Posting it on page
+    document.getElementById("Rooms").insertAdjacentElement("beforeend", Rooms);
+
+};
