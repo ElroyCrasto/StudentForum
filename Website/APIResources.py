@@ -264,3 +264,23 @@ class WebsiteInfo(Resource):
             "RoomCount" : len(Rooms),
         })
         return res
+
+class DeletePost(Resource):
+    @staticmethod
+    def post():
+        Data = RoomsData.parse_args()
+        Cookie = request.cookies.get("AuthToken")
+        
+        if not Cookie: return jsonify({"Status":0, "Msg":"Invalid Token"})
+        CurrentUser = User.query.filter_by(AuthToken=Cookie).first()
+        if not CurrentUser: return jsonify({"Status":0, "Msg":"Invalid Token"})
+
+        _Post = Post.query.filter_by(PublicID=Data["PublicID"]).first()
+        if not _Post: return jsonify({"Status":0, "Msg":"Invalid Post ID"})
+
+        if not (_Post.UID == CurrentUser.ID):return jsonify({"Status":0, "Msg":"You are not the owner of this post"})
+        db.session.delete(_Post)
+        db.session.commit()
+
+        res = jsonify({"Status":1, "Msg":"Post Deleted Successfully"})
+        return res
