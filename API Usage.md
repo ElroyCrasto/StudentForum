@@ -141,7 +141,8 @@ Possible Messages
         "RoomsList" : List of JSON [{
                                     Title: String,
                                     Description: String,
-                                    PublicID: String 
+                                    PublicID: String,
+                                    Posts: Integer
                                     }],
         "Msg" : String
     }
@@ -205,7 +206,7 @@ Possible Messages
                                     "User": String,
                                     "PostedAt": Date,
                                     "Type": String}],
-
+        "PostCount": Integer,
         "Msg" : String
     }
 Possible Messages

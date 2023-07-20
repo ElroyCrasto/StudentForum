@@ -181,7 +181,7 @@ class GetRooms(Resource):
         if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": RoomsData = Room.query.all()
         else:
             RoomsData = Room.query.filter(Room.Year.in_([CurrentUser.Year, "ALL"])).filter(Room.Course.in_([CurrentUser.Course, "All"])).all()
-        return jsonify({"RoomsList":[{"Title":i.Title,"Description":i.Description, "PublicID":i.PublicID} for i in RoomsData], "Status":1 , "Msg":"Request Successful"})
+        return jsonify({"RoomsList":[{"Title":i.Title,"Description":i.Description, "PublicID":i.PublicID, "Posts":len(i.Post)} for i in RoomsData], "Status":1 , "Msg":"Request Successful"})
 
 class GetUserPost(Resource):
     @staticmethod
@@ -228,7 +228,7 @@ class GetRoomPosts(Resource):
         elif not ((_Room.Course == CurrentUser.Course or _Room.Course == "ALL") and (_Room.Year == CurrentUser.Year or _Room.Year == "ALL")):
             return jsonify({"Status":2,"Msg":"You Do Not Have Access to This Room"})
         Posts = _Room.PID
-        res = jsonify({"Status":1, "Posts":[{"Title":i.Title,"Content":i.Content,"Views":i.Views,"PublicID":i.PublicID,"User":User.query.filter_by(ID=i.UID).first().Username, "PostedAt":i.PostedAt, "Type":i.Type} for i in Posts]})
+        res = jsonify({"Status":1, "Posts":[{"Title":i.Title,"Content":i.Content,"Views":i.Views,"PublicID":i.PublicID,"User":User.query.filter_by(ID=i.UID).first().Username, "PostedAt":i.PostedAt, "Type":i.Type} for i in Posts], "PostCount": len(Posts)})
         return res
 
 class GetPost(Resource):
@@ -250,4 +250,17 @@ class GetPost(Resource):
             return jsonify({"Status":2,"Msg":"You Do Not Have Access to This Post"})
         
         res = jsonify({"Status":1, "Title":_Post.Title,"Content":_Post.Content,"Views":_Post.Views,"PublicID":_Post.PublicID,"User":User.query.filter_by(ID=_Post.UID).first().Username, "PostedAt":_Post.PostedAt, "Type":_Post.Type, "Msg": "Request Successfull" })
+        return res
+
+class WebsiteInfo(Resource):
+    @staticmethod
+    def get():
+        Users = User.query.all()
+        Posts = Post.query.all()
+        Rooms = Room.query.all()
+        res = jsonify({
+            "UserCount" : len(Users),
+            "PostCount" : len(Posts),
+            "RoomCount" : len(Rooms),
+        })
         return res
