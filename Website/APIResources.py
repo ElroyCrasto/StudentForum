@@ -278,7 +278,7 @@ class DeletePost(Resource):
         _Post = Post.query.filter_by(PublicID=Data["PublicID"]).first()
         if not _Post: return jsonify({"Status":0, "Msg":"Invalid Post ID"})
 
-        if not (_Post.UID == CurrentUser.ID):return jsonify({"Status":0, "Msg":"You are not the owner of this post"})
+        if not (_Post.UID == CurrentUser.ID):return jsonify({"Status":2, "Msg":"You are not the owner of this post"})
         db.session.delete(_Post)
         db.session.commit()
 
