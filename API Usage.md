@@ -252,3 +252,51 @@ Possible Messages
 
 - Success Msg with Status 1
     - Request Successful
+
+## WebsiteInfo
+
+- URL: http://localhost:5000/api/WebsiteInfo
+- Method: GET
+
+- Response
+    ```
+    {
+        "UserCount" : Integer,
+        "PostCount" : Integer,
+        "RoomCount" : Integer,
+    }
+
+## DeletePost
+
+- URL: http://localhost:5000/api/DeletePost
+- Method: POST
+- Login: Required
+- Cookie: Required
+
+- Arguments:
+    ```
+    {
+        PublicID : String
+    }
+    ```
+- Response:
+    ```
+    {
+        Status: Integer,
+        Msg : String
+    }
+    ```
+Possible Messages
+
+- Error Messages with Status 0
+    - Invalid Token'
+    - Invalid PublicID
+<br>
+
+- Error Message with Status 2    
+    - You Do not have access to this post
+<br>
+
+- Success Msg with Status 1
+    - Request Successful
+
