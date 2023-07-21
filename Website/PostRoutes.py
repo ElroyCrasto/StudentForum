@@ -40,3 +40,7 @@ def ShowRooms():
 @PostRoute.route("/RoomPage")
 def DisplayRoom():
     return render_template("RoomPage.html")
+
+@PostRoute.route("/ManagePost")
+def DeletePost():
+    return render_template("ManagePost.html")

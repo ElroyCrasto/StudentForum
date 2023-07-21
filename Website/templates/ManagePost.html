@@ -1,0 +1,24 @@
+{% extends "template.html" %}
+
+{% block title %}
+Login
+{%endblock%}
+
+{%block head%}
+<script defer type="text/javascript" src="{{url_for('static',filename='Javascript/ManagePost.js')}}"></script>
+{%endblock%}
+
+{%block body%}
+
+<h1> Delete Post </h1><br>
+
+<body onload=ShowPostDetails()>
+    <div id="Posts">
+        <div class="spinner-border text-danger" role="status" id="loading">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</body>
+
+
+{%endblock%}
