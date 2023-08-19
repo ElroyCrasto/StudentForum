@@ -94,13 +94,17 @@ class UsernameCheck(Resource):
     @staticmethod
     def post():
         Data = NewUsernameCheck.parse_args()
+        Data['Username'] = Data["Username"].strip()
         if not (Data['Username'].strip().find(" ") == -1):
             return jsonify({"Status":0,"Msg":"Username Cannot Contain Spaces"})
         if not (LengthCheck(8,Data["Username"].strip())):
             return jsonify({"Status":0,"Msg":"Username Already Exists Or Isnt a Valid Username"})
         check = User.query.filter_by(Username=Data["Username"]).first()
-        if check and SpecialCharCheck(Data["Username"]):
-            res = jsonify({"Status":0,"Msg":"Username Already Exists Or Isnt a Valid Username"})
+        if not SpecialCharCheck(Data["Username"]):
+            res = jsonify({"Status":0,"Msg":"Isnt a Valid Username"})
+            res.status_code = 200
+        elif check:
+            res = jsonify({"Status":0,"Msg":"Username Already Exists"})
             res.status_code = 200
         else:
             res = jsonify({"Status":1,"Msg":"Username is Available"})
