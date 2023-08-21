@@ -1,4 +1,4 @@
-{% extends "template.html" %}
+{% extends "templateNav.html" %}
 
 {% block title %}
 Rooms
@@ -6,14 +6,59 @@ Rooms
 
 {%block head%}
 <script type="text/javascript" src="{{url_for('static',filename='Javascript/Rooms.js')}}"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='CSS/Rooms.css')}}">
+
 {%endblock%}
 
 {%block body%}
+
 <body onload="DisplayRooms()">
     <div id="Rooms">
         <div class="spinner-border text-danger" role="status" id="loading">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
+<br>
+<div class="row row-cols-lg-2 row-cols-md-1">
+    
+    <div class="container col-lg-9">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <div class="p-xs">
+                            <div class="pull-left m-r-md">
+                                <i class="fa fa-globe text-navy mid-icon"></i>
+                            </div>
+                            <h2>Welcome to our forum</h2>
+                            <span>Feel free to choose topic you're interested in.</span>
+                        </div>
+                    </div>
+
+                    <div class="ibox-content forum-container">
+                        <div class="forum-title">
+                            <div class="pull-right forum-desc">
+                                <small>Total posts: 320,800</small>
+                            </div>
+                            <h3>Rooms</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Right-side container for counts -->
+    <div class="count-container col-lg-3">
+        <div class="count-item">
+            <h3 class="pt-3">Total Post:</h3>
+            <span id="total-posts"><b>100</b></span>
+        </div>
+        <div class="count-item">
+            <h3>Active Members:</h3>
+            <span id="active-members"><b>50</b></span>
+        </div>
+    </div>
+</div>
 </body>
 {%endblock%}

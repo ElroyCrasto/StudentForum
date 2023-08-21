@@ -1,0 +1,461 @@
+body {
+  margin-top: 20px;
+  background: #64c2e8;
+}
+
+/* Rest of your existing styles */
+.navbar {
+position: fixed; /* Set the navbar to be fixed at the top */
+top: 0; /* Ensure the navbar starts from the top of the page */
+width: 100%; /* Make the navbar span the full width of the viewport */
+z-index: 1;
+height: 65px;
+}
+@media (max-width: 991px) {
+.navbar {
+top: 0; 
+position: fixed;
+height: 65px;
+}
+
+.navbar-collapse {
+margin-top: 17px;
+background-color: #2899c5; /* Set a background color for the collapsed navbar */
+padding: 10px; /* Add padding for better visibility */
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px ;
+}
+
+.navbar-nav .nav-item1 {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px ;
+background-color: #91d0e8; /* Set the background color for navigation items */
+display: block; /* Display navigation items as block elements */
+text-align: left; /* Align navigation items to the left within the block */
+padding: 8px 15px; /* Add padding to navigation items */
+}
+.navbar-nav .nav-item {
+  background-color: #91d0e8; /* Set the background color for navigation items */
+  display: block; /* Display navigation items as block elements */
+  text-align: left; /* Align navigation items to the left within the block */
+  padding: 8px 15px; /* Add padding to navigation items */
+  }
+  .navbar-nav .nav-item3 {
+
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px ;
+    background-color: #91d0e8; /* Set the background color for navigation items */
+    display: block; /* Display navigation items as block elements */
+    text-align: left; /* Align navigation items to the left within the block */
+    padding: 8px 15px; /* Add padding to navigation items */
+    }
+      
+.login-btn {
+margin-top: 10px; /* Add margin to the login button to separate it from navigation options */
+margin-bottom: 10px;
+}
+.navbar-nav .nav-item .nav-link {
+color: #070707; /* Set the text color for navigation links */
+}
+}
+
+.navbar-brand {
+  color: rgb(7, 7, 7); /* Change to your preferred color */
+}
+.navbar-brand:hover{
+    background-color: #e0e0e0;
+}
+
+.navbar-toggler-icon {
+  background-color: white; /* Change to your preferred color */
+}
+
+.nav-link {
+  color: rgb(7, 7, 7); /* Change to your preferred color */
+}
+.nav-link:hover {
+ background-color: #e0e0e0;
+}
+.login-btn {
+  background-color: #B31312; /* Change to your preferred color */
+  color: white; /* Change to your preferred color */
+  border: none;
+  margin-left: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+  background-color: #c82333; /* Change to your preferred color */
+}
+.navbar {
+    margin-top: 70;
+}
+
+
+    .white-bg {
+        background-color: #ffffff;
+    }
+    .page-heading {
+        border-top: 0;
+        padding: 0 10px 20px 10px;
+    }
+    
+    .forum-post-container .media {
+      margin: 10px 10px 10px 10px;
+      padding: 20px 10px 20px 10px;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    .forum-avatar {
+      float: left;
+      margin-right: 20px;
+      text-align: center;
+      width: 110px;
+    }
+    .forum-avatar .img-circle {
+      height: 48px;
+      width: 48px;
+    }
+    .author-info {
+      color: #676a6c;
+      font-size: 11px;
+      margin-top: 5px;
+      text-align: center;
+    }
+    .forum-post-info {
+      padding: 9px 12px 6px 12px;
+      background: #f9f9f9;
+      border: 1px solid #f1f1f1;
+    }
+    .media-body > .media {
+      background: #f9f9f9;
+      border-radius: 3px;
+      border: 1px solid #f1f1f1;
+    }
+    .forum-post-container .media-body .photos {
+      margin: 10px 0;
+    }
+    .forum-photo {
+      max-width: 140px;
+      border-radius: 3px;
+    }
+    .media-body > .media .forum-avatar {
+      width: 70px;
+      margin-right: 10px;
+    }
+    .media-body > .media .forum-avatar .img-circle {
+      height: 38px;
+      width: 38px;
+    }
+    .mid-icon {
+      font-size: 66px;
+    }
+    .forum-item {
+      margin: 10px 0;
+      padding: 10px 0 20px;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    .views-number {
+      font-size: 24px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+    .forum-container,
+    .forum-post-container {
+      padding: 30px !important;
+    }
+    .forum-item small {
+      color: #999;
+    }
+    .forum-item .forum-sub-title {
+      color: #999;
+      margin-left: 50px;
+    }
+    .forum-title {
+      margin: 15px 0 15px 0;
+    }
+    .forum-info {
+      text-align: center;
+    }
+    .forum-desc {
+      color: #999;
+    }
+    .forum-icon {
+      float: left;
+      width: 30px;
+      margin-right: 20px;
+      text-align: center;
+    }
+    a.forum-item-title {
+      color: inherit;
+      display: block;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    a.forum-item-title:hover {
+      color: inherit;
+    }
+    .forum-icon .fa {
+      font-size: 30px;
+      margin-top: 8px;
+      color: #9b9b9b;
+    }
+    .forum-item.active .fa {
+      color: #9b9b9b;
+    }
+    .forum-item.active a.forum-item-title {
+      color: #141312;
+    }
+    @media (max-width: 992px) {
+      .forum-info {
+        margin: 15px 0 10px 0;
+        /* Comment this is you want to show forum info in small devices */
+        display: none;
+      }
+      .forum-desc {
+        float: none !important;
+      }
+    }
+    
+    
+form {
+
+  border-radius: 8px;
+  background-color: white; /* Light background color */
+}
+    
+    
+    
+    .ibox {
+      clear: both;
+      margin-bottom: 25px;
+      margin-top: 0;
+      padding: 0;
+    }
+    
+    .ibox.collapsed .ibox-content {
+      display: none;
+    }
+    .ibox.collapsed .fa.fa-chevron-up:before {
+      content: "\f078";
+    }
+    .ibox.collapsed .fa.fa-chevron-down:before {
+      content: "\f077";
+    }
+    .ibox:after,
+    .ibox:before {
+      display: table;
+    }
+    .ibox-title {
+      -moz-border-bottom-colors: none;
+      -moz-border-left-colors: none;
+      -moz-border-right-colors: none;
+      -moz-border-top-colors: none;
+      background-color: #EA906C;
+      border-color: #e7eaec;
+      border-image: none;
+      border-style: solid solid none;
+      border-width: 3px 0 0;
+      color: inherit;
+      margin-bottom: 0;
+      padding: 14px 15px 7px;
+      min-height: 48px;
+    }
+    .container-fluid1 {
+      margin-top: 20%;
+      background-color: #41464b;
+      color: #fff;
+      padding: 20px 0;
+    }
+    
+    .ibox-content {
+      background-color: white;
+   
+      color: inherit;
+      padding: 15px 20px 20px 20px;
+      border-color: #e7eaec;
+      border-image: none;
+      border-style: solid solid none;
+      border-width: 2px;
+      border-radius: 10px;
+      margin-top: 20px;
+      width: 100%;
+    }
+     
+    .ibox-contentform {
+      text-align: center;
+      background-color: white;
+
+      color: inherit;
+      margin-top: 60px;
+      margin-left: 8%;
+  
+      border-color: white;
+      border-style: solid solid none;
+      border-width: 2px;
+      border-radius: 10px;
+      width: 84%;
+    }
+
+    .containerform {
+  
+      background-color: white;
+      padding: 30px;
+      margin-left: 8%;
+      border-color: #ffffff;
+      border-style: none;
+      border-radius: 10px;
+      width: 84%;
+    }
+
+    
+    .form-control {
+      border-radius: 4px;
+      background-color: #ffffff; /* Lighter background color for form fields */
+      border: none;
+      color: #212529;
+    }
+    
+    .form-control::placeholder {
+      color: #6c757d;
+    }
+    
+    .form-control:focus {
+      box-shadow: none;
+      background-color: #ffffff;
+    }
+    
+    .btn-primary {
+      margin-top: 1px;
+      margin-bottom: 3px;
+      background-color: #1b1e27;
+      border-color: #2B2A4Cff;
+    }
+    
+    .btn-primary:hover {
+      background-color:#2b365e;
+      border-color: #0056b3;
+    }
+    
+    .btn-primary:focus,
+    .btn-primary.focus {
+      box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+    }
+    
+    .p-xs .mid-icon {
+      margin-right: 20px; /* Adjust this value to control the distance between the icon and the text */
+  }
+    
+    .ibox-footer {
+      color: inherit;
+      border-top: 1px solid #e7eaec;
+      font-size: 90%;
+      background: #ffffff;
+      padding: 10px 15px;
+    }
+    
+    .message-input {
+        height: 90px !important;
+    }
+    .form-control, .single-line {
+        background-color: #FFFFFF;
+        background-image: none;
+        border: 1px solid #e5e6e7;
+        border-radius: 1px;
+        color: inherit;
+        display: block;
+        padding: 6px 12px;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+        width: 100%;
+        font-size: 14px;
+    }
+    .text-navy {
+        color: #a6b8b5;
+    }
+    .mid-icon {
+        font-size: 66px !important;
+    }
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+    .fa-1x {
+      font-size: 1.5rem;
+    }
+    .navbar-toggler.toggler-example {
+      cursor: pointer;
+    }
+    .dark-blue-text {
+      color: #2B2A4C;
+    }
+    .dark-pink-text {
+      color: #AC003A;
+    }
+    .dark-amber-text {
+      color: #ff6f00;
+    }
+    .dark-teal-text {
+      color: #004d40;
+    }
+    .center {
+      flex-grow: 1;
+      text-align: center;
+      color: #141312;
+    }
+
+    /*.search-toggler button {
+      background-color: transparent;
+      border: none;
+      color: #171616;
+      cursor: pointer;
+    }*/
+    .search-toggler input {
+      padding: 5px;
+      width: 300px;
+      border-radius: 10px;
+      
+    }
+
+    /* Styling for the search button */
+.search-button {
+  background-color:#1b1e27;
+  border: none;
+  color: white;
+  padding-top: 5px;
+  padding-left:  10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  cursor: pointer;
+  font-size: 18px;
+  
+  border-radius: 10px;
+}
+
+.search-button:hover {
+  background-color: #2b365e;
+}
+.custom-input {
+  border-radius: 10px; /* Adjust the value to your preference */
+}
+
+
+    /* Basic styling for the container */
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Styling for the right-side container */
+.count-container {
+  max-height: 10rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 3rem auto;
+  border-radius: 10px;
+}
