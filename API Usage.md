@@ -128,7 +128,7 @@ Possible Messages
     - Invalid Token
     - No Such User
 
-### GetRooms
+### GetRoomsData
 - URL: http://localhost:5000/api/GetRoomsData
 - Method: GET
 - Login: Required

@@ -21,17 +21,65 @@ function DisplayRooms(){
 };
 
 function RenderHTML(data){
+    //Displaying total posts available
+    var TotalPosts = document.getElementById("total-posts");
+    TotalPosts.innerText = Number(TotalPosts.innerText) + data.Posts;
+
     //setting HTML elements
-   var Rooms = '<div class="forum-item">'+
-   '<div class="row">'+'<div class="col-md-9">'+
-   '<div class="forum-icon">'+'<i class="fa fa-bolt"></i>'+'</div>'+
-   '<a href='+'"'+'/RoomPage?r='+data.PublicID+'"'+'class="forum-item-title">'+data.Title+
-   '</a><div class="forum-sub-title">'+data.Description+'</div></div>'+
-   '<div class="col-md-1 forum-info">'+'<span class="views-number">'+'0'+'</span>'+
-   '<div>'+'<small>' + 'Views' +'</small>'+'</div>'+'</div>'+
-   '<div class="col-md-1 forum-info">'+'<span class="views-number">'+data.Posts+'</span>'+'<div>'+'<small>'+'Posts'+'</small>'+
-   '</div>'+'</div>'+'</div>'+'</div>'+'<br>'
+    var Rooms = document.createElement("div");
+    Rooms.setAttribute("class", "forum-item");
+
+    var Row = document.createElement("div");
+    Row.setAttribute("class", "row");
+
+    var IconDiv = document.createElement("div");
+    IconDiv.setAttribute("class", "col-md-9");
+    
+    var InIconDiv = document.createElement("div");
+    InIconDiv.setAttribute("class", "forum-icon");
+
+    var Icon = document.createElement("div");
+    Icon.setAttribute("class", "fa fa-bolt");
+
+    var Title = document.createElement("a");
+    Title.setAttribute("class", "forum-item-title");
+
+    var SubTitle = document.createElement("div");
+    SubTitle.setAttribute("class", "forum-sub-title");
+
+    var PostsDiv = document.createElement("div");
+    PostsDiv.setAttribute("class", "col md-1 forum-info");
+
+    var Posts = document.createElement("span");
+    Posts.setAttribute("class", "post-count");
+
+    var SmallDiv = document.createElement("div");
+
+    var Small = document.createElement("small");
+
+
+   //Passing values to elements
+    Title.insertAdjacentHTML("beforeend", data.Title);
+    SubTitle.insertAdjacentHTML("beforeend", data.Description);
+    Posts.insertAdjacentHTML("beforeend", data.Posts);
+    Small.insertAdjacentText("beforeend", "Posts");
+
+
+    //Passing elements to divs
+    InIconDiv.insertAdjacentElement("beforeend", Icon);
+    IconDiv.insertAdjacentElement("beforeend", InIconDiv);
+    IconDiv.insertAdjacentElement("beforeend", Title);
+    IconDiv.insertAdjacentElement("beforeend", SubTitle);
+    Row.insertAdjacentElement("beforeend", IconDiv);
+    PostsDiv.insertAdjacentElement("beforeend", Posts);
+    PostsDiv.insertAdjacentElement("beforeend", SmallDiv);
+    SmallDiv.insertAdjacentElement("beforeend",Small);
+    Row.insertAdjacentElement("beforeend", PostsDiv);
+    Rooms.insertAdjacentElement("beforeend", Row);
+
+
     //Posting it on page
-    document.getElementsByClassName("ibox-content forum-container")[0].insertAdjacentHTML("beforeend", Rooms);
+    document.getElementsByClassName("ibox-content forum-container")[0].insertAdjacentElement("beforeend", Rooms);
+    
 
 };
