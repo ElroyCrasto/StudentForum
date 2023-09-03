@@ -3,12 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Bootstrap/bootstrap.min.css') }}"></link>
-    <script defer src="{{ url_for('static', filename='Bootstrap/bootstrap.bundle.js') }}" ></script>
+    <title>LANDING PAGE</title>
+    <link 
+        rel="stylesheet" 
+        type="text/css" 
+        href="{{ url_for('static', filename='Bootstrap/bootstrap.min.css') }}">
+    </link>
+
+    <script defer src="{{ url_for('static', filename='Bootstrap/bootstrap.bundle.js') }}"></script>
     <script src="{{url_for('static',filename='jQuery/jquery-3.7.0.min.js')}}"></script>
-    <title>Home</title>
+    <link 
+        rel="stylesheet" 
+        type="text/css" 
+        href="{{ url_for('static', filename='Bootstrap/bootstrap-icons/font/bootstrap-icons.css') }}">
+    </link>
+    <link 
+        rel="stylesheet" 
+        type="text/css" 
+        href="{{ url_for('static', filename='CSS/aos.css') }}">
+    </link>
+    
+    <style>
+        body{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif !important;
+            color: black !important;
+            background-color: #64c2e8 !important;
+          }
+          .card{
+            background-color: #64c2e8 !important;
+          }
+          header.masthead {
+            position: relative;
+            background: url("{{url_for('static',filename='Images/main.jpg')}}") no-repeat center center;
+            border-radius: 30px;
+            height: 500px;
+            background-size: cover;
+            padding-top: 14rem;
+            padding-bottom: 7rem;
+          }
+          .icons{
+              font-size: 70px !important;
+
+              color: #64c2e8 !important;
+          }
+          .card-group{
+              margin-top: 110px;
+              
+          }
+          .showcase{
+              margin-top: 100px;
+          }
+          .showcase .showcase-text {
+              padding: 3rem;
+            }
+            .showcase .showcase-img-1 {
+              background-image: url("{{url_for('static',filename='Images/one.jpg')}}");
+              border-radius: 30px !important;
+              min-height: 30rem;
+              background-size: cover;
+            }
+            .card{
+              background-color: white !important;
+              border-radius: 30px !important;
+              
+            }
+            .showcase .showcase-img-2 {
+              background-image: url("{{url_for('static',filename='Images/two.jpg')}}");
+              border-radius: 30px !important;
+              min-height: 30rem;
+              background-size: cover;
+            }
+            
+            .showcase .showcase-img-3 {
+              background-image: url("{{url_for('static',filename='Images/three.jpg')}}");
+              border-radius: 30px !important;
+              min-height: 30rem;
+              background-size: cover;
+            }
+            @media (min-width: 768px) {
+              .showcase .showcase-text {
+                padding: 7rem;
+              }
+            }
+          
+            .call-to-action {
+              position: relative;
+              background-color: #343a40;
+              
+              background: url("{{url_for('static',filename='Images/footer.jpeg')}}") no-repeat center center;
+              background-size: cover;
+              padding-top: 7rem;
+              padding-bottom: 7rem;
+            }
+            .call-to-action:before {
+              content: "";
+              position: absolute;
+
+              height: 100%;
+              width: 100%;
+              top: 0;
+              left: 0;
+              opacity: 0.5;
+            }
+            .btn{
+              background-color: #1b1e27 !important;
+              color: white;
+              border: 2px solid #1b1e27;
+            }
+            .btn:hover{
+              background-color: #2b365e !important;
+              color: white;
+              border: 2px solid #2b365e;
+            }
+            
+            
+    </style>
 </head>
 <body>
-    <h1 class="text-center display-1"> Home Page </h1>
+
+    <div class="container-fluid text-dark bg-transparent">
+        <div class="container">
+            <!-- navbar -->
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                  <div class="container-fluid">
+                    <h1 class="navbar-brand" href="#"><b> College Buddy </b></h1>
+                    <div class="col-auto"><button class="btn btn-danger btn-lg" id="submitButton" type="submit">Login</button>
+                  </div>
+                </nav>
+            </div>
+        </div>
+    </div> 
+
+<!-- main-container -->
+<div class="container">
+              <header class="masthead">
+                <div class="container position-relative">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6">
+                            <div class="text-center text-dark"   data-aos="fade-up" data-aos-duration="2000">
+                                <!-- Page heading-->
+                                <h1 class="mb-5">Welcome to CollegeBuddy: Your Ultimate Buddy Finder for Campus Life!</h1>
+                                
+                                <div class="col-auto"><button class="btn btn-lg" id="submitButton" type="submit">Sign up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+          </div>
+          
+
+
+<!-- cards -->
+<div class="container"  data-aos="fade-up" data-aos-duration="2000">
+<div class="card-group gap-4">
+  <div class="card text-center border-0">
+    <i class="bi bi-person-vcard-fill icons"></i>
+    <div class="card-body">
+      <h3 class="card-title">Engage & Empower</h3>
+      <p class="card-text fs-5">Get Involved with new communities and build community</p>
+    </div>
+  </div>
+  <div class="card text-center border-0">
+    <i class="bi bi-person-check-fill icons"></i>
+    <div class="card-body">
+      <h3 class="card-title">Community Solutions</h3>
+      <p class="card-text fs-5">Get your questions answered by your own community</p>
+
+    </div>
+  </div>
+  <div class="card text-center border-0">
+    <i class="bi bi-link-45deg icons"></i>
+    <div class="card-body">
+      <h3 class="card-title">Instant Connectivity</h3>
+      <p class="card-text fs-5">Learn and talk to people across your College with the touch of your finger</p>
+    </div>
+  </div>
+</div>
+</div>            
+
+
+
+        <!-- Image Showcases-->
+        <div class="container">
+        
+        <section class="showcase">
+          <div class="container-fluid p-0">
+              <div class="row g-0">
+                  <div class="col-lg-6 order-lg-2 text-white showcase-img-1"></div>
+                  <div class="col-lg-6 order-lg-1 my-auto showcase-text"  data-aos="fade-up" data-aos-duration="2000">
+                      <h2>College Connectors: Your Buddy Finde</h2>
+                      <p class="lead mb-0">Find your perfect college buddy with College Connectors! Whether you're looking for a study partner, someone to explore campus events, or simply a friend to share college adventures with, we've got you covered.</p>
+                  </div>
+              </div>
+              <div class="row g-0">
+                  <div class="col-lg-6 text-white showcase-img-2"></div>
+                  <div class="col-lg-6 my-auto showcase-text"   data-aos="fade-up" data-aos-duration="2000">
+                      <h2>Social Scholars: Unite and Thrive</h2>
+                      <p class="lead mb-0">Join Social Scholars to expand your social circle and thrive in your college journey. Engage with like-minded students, discover shared interests, and create lasting friendships that go beyond the classroom.</p>
+                  </div>
+              </div>
+              <div class="row g-0">
+                  <div class="col-lg-6 order-lg-2 text-white showcase-img-3"></div>
+                  <div class="col-lg-6 order-lg-1 my-auto showcase-text"   data-aos="fade-up" data-aos-duration="2000">
+                      <h2>BuddyUp: Your Campus Support System</h2>
+                      <p class="lead mb-0">Welcome to BuddyUp, your ultimate campus support system! Connect with peers who can help answer your questions, support your academic goals, and make your college experience more enjoyable and fulfilling.</p>
+                  </div>
+              </div>
+          </div>
+      </section>
+    </div>
+
+    </section>
+    <!-- Call to Action-->
+    <section class="call-to-action text-white text-center mt-5" id="signup">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <h2 class="mb-4">Ready to get started? Sign up now!</h2>
+                    
+                    <div class="col-auto"><button class="btn btn-danger btn-lg" id="submitButton" type="submit">Signup</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--
+        
+        <footer class="footer bg-transparent mt-5 mb-5">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                      <ul class="list-inline mb-2" >
+                          <li class="list-inline-item" ><a href="#!">About</a></li>
+                          <li class="list-inline-item">⋅</li>
+                          <li class="list-inline-item"><a href="#!">Contact</a></li>
+                          <li class="list-inline-item">⋅</li>
+                          <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                          <li class="list-inline-item">⋅</li>
+                          <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </footer>
+    -->
+      <script src="{{url_for('static',filename='javascript/aos.js')}}"></script>
+    <script >
+      AOS.init();
+    </script>
 </body>
 </html>
