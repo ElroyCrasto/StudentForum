@@ -105,6 +105,11 @@ class UsernameCheck(Resource):
             res.status_code = 200
         elif check:
             res = jsonify({"Status":0,"Msg":"Username Already Exists"})
+        if not SpecialCharCheck(Data["Username"]):
+            res = jsonify({"Status":0,"Msg":"Username Already Exists Or Isnt a Valid Username"})
+            res.status_code = 200
+        elif check != None:
+            res = jsonify({"Status":0,"Msg":"Username Already Exists Or Isnt a Valid Username"})
             res.status_code = 200
         else:
             res = jsonify({"Status":1,"Msg":"Username is Available"})

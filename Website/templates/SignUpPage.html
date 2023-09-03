@@ -8,116 +8,430 @@ SignUp
 {% endblock %}
 
 {%block body%}
-<h1 class="display-1 text-center">SignUp</h1>
-<p><b>Enter Username:</b>
-        <input type="text" id="username" name="Username" placeholder="Username" onchange="CheckUserName()">
-        <svg id="tick" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
-            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-          </svg>
 
-          <svg id="cross" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="red" class="bi bi-x" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-          </svg>
-        <br>
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="check-circle-fill" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" viewBox="0 0 16 16">
+      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+  </svg>
 
-        <b>Enter Firstname:</b>
-        <input type="text" id="firstname" name="Firstname" placeholder="Firstname" required><br>
-        
-        <b>Enter Lastname</b>
-        <input type="text" id="lastname" name="Lastname"placeholder="Lastname"required ><br>
+<div class="danger alert mt-3" id="alert" style="display: none;" role="alert">
+    <div class="content">
+      <div class="icon">
+        <svg height="50" viewBox="0 0 512 512" width="50" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M449.07,399.08,278.64,82.58c-12.08-22.44-44.26-22.44-56.35,0L51.87,399.08A32,32,0,0,0,80,446.25H420.89A32,32,0,0,0,449.07,399.08Zm-198.6-1.83a20,20,0,1,1,20-20A20,20,0,0,1,250.47,397.25ZM272.19,196.1l-5.74,122a16,16,0,0,1-32,0l-5.74-121.95v0a21.73,21.73,0,0,1,21.5-22.69h.21a21.74,21.74,0,0,1,21.73,22.7Z"/></svg>
+    </div>
+      <p id="msgs"> </p>
+    </div>
+    <button class="close" id="close" onclick="err()">
+     <svg height="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#69727D" d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z"/></svg>
+    </button>
+  </div>
+</div>
 
-        <b>Enter Password</b>
-        <input type="password" id="password" name="Password" placeholder="Password" minlength="5" required><br>
+<div class="form-body container col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12 mt-5">
+    <div class="row">
+        <div class="form-holder">
+            <div class="form-content container col-12">
+                <div class="form-items container col-12">
+                    <h2><b>Sign Up</b></h2>
+                    <p>Fill in the data below.</p>
+                        
+                        <div class="group1" id="grp1">
+                            <div class="col-12">
+                                <label class="mt-3 mr-1" for="username"><h5>Username</h5></label>
+                                <div class="row">
+                                    <div class="col-xl-11 col-9">
+                                            <input class="form-control" type="text" name="Username" placeholder="Enter a Username" id="username" onchange="CheckUserName()" required>
+                                    </div>
+                                    <div class="col-xl-1 col-3">    
+                                        <svg id="tick" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                        </svg>
+                                
+                                        <svg id="cross" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="red" class="bi bi-x" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </div>   
+                                </div>    
+                            </div>
 
-        <b>Confirm Password</b>
-        <input type="password" id="confirm_password" name="confirm_Password" placeholder="Confirm your Password" minlength="5" required><br>
+                            <div class="col-12">
+                                <label class="mt-4 mr-1" for="firstname"><h5>Firstname</h5></label>
+                                <input class="form-control" type="text" name="Firstname" placeholder="Enter your Firstname" id="firstname" required>
+                            </div>
 
-        <b>Enter Date of Birth</b>
-        <input type="date" id="dob" name="Dob" placeholder="Date-of-Birth"required> <br>
-        
-        <b>Please Select Your Academic Year</b> <br> 
-        <input type="radio" id="YearFy" name="Year" value="FY">
-        <label for="FY">FY</label> <br>
+                            <div class="col-12">
+                                <label class="mt-4 mr-1" for="lastname"><h5>Lastname</h5></label>
+                                <input class="form-control" type="text" name="lastname" placeholder="Enter your Lastname" id="lastname" required>
+                            </div>
 
-        <input type="radio" id="YearSy" name="Year" value="SY" >
-        <label for="SY">SY</label> <br>
+                            <div class="form-button mt-3">
+                                <button id="submit" type="submit" class="btn btn-primary mt-3" style="float: right;" onclick="group1()">Next</button>
+                            </div>
+                        </div>
 
-        <input type="radio" id="YearTy" name="Year" value="TY" >
-        <label for="TY">TY</label> <br>
+                        <div class="group2" id="grp2">
+                            <div class="mt-3 mb-5">
+                                <div id="dateb" class="row">
+                                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-6">
+                                        <label for="dob"><h5>Date of Birth :  </h5></label> 
+                                    </div>
+                                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-6">
+                                        <input type="date" name="Dob" placeholder="Date of Birth" id="dob" required>  
+                                    </div>    
+                                </div>
+                            </div>
 
-        <b>Please Select Your Course</b> <br> 
-        <input type="radio" id="CS" name="Course" value="FY">
-        <label for="CS">CS</label> <br>
+                            <div class="row mb-5">
+                                <div class="col-xl-4 col-lg-6 col-md-5 col-sm-6 col-auto">
+                                    <label for="dob"><h5>Academic Year :  </h5></label>
+                                </div>
+                                <div class="col-xl-8 col-lg-6 col-md-7 col-sm-6 col-auto">
+                                    <div class="row">
+                                        <div class="col-md-auto col-4">
+                                            <input type="radio" class="btn-check" name="year" id="year1" autocomplete="off">
+                                            <label class="btn btn-secondary" for="year1" id="fy" style="font-size: large;">  FY  </label>
+                                        </div>
+                                        <div class="col-md-auto col-4">
+                                            <input type="radio" class="btn-check" name="year" id="year2" autocomplete="off">
+                                            <label class="btn btn-secondary" for="year2" id="sy" style="font-size: large;"> SY  </label>
+                                        </div>
+                                        <div class="col-md-auto col-4">
+                                            <input type="radio" class="btn-check" name="year" id="year3" autocomplete="off">
+                                            <label class="btn btn-secondary" for="year3" id="ty" style="font-size: large;"> TY  </label>
+                                        </div>
+                                    </div>
+                                </div>     
+                            </div>
+                    
+                            <div class="row mb-3">
+                                <div class="col-xl-4 col-lg-6 col-md-5 col-sm-6">
+                                    <label for="Course"><h5>Select Your Course : </h5></label>
+                                </div>
+                                <div class="col-xl-8 col-lg-6 col-md-7 col-sm-6">
+                                    <div class="row">
+                                        <div class="col-md-auto col-sm-auto col-auto">
+                                            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
+                                            <label class="btn btn-secondary" for="option1" id="cs" style="font-size: large;">  CS  </label>
+                                        </div>
+                                        <div class="col-md-auto col-sm-auto col-auto">
+                                            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                                            <label class="btn btn-secondary" for="option2" id="it" style="font-size: large;"> IT  </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-        <input type="radio" id="IT" name="Course" value="SY" >
-        <label for="IT">IT</label> <br>
+                                <div class="form-button mt-3">
+                                    <button id="grp2p" type="submit" class="btn btn-primary mt-3" onclick="group2p()">Previous</button>
+                                    <button id="grp2n" type="submit" class="btn btn-primary mt-3" onclick="group2n()">Next</button>
+                                </div>  
+                            </div>     
 
-        <label for="cars">Select a Security Question:</label>
+                        <div class="group3" id="grp3">
+                                <div class="col-12">
+                                    <label class="mr-1" for="password"><h4>Password</h4></label>
+                                    <input class="form-control" type="password" name="Password" placeholder="Password" id="password" minlength="5" required>
+                                </div>
 
-        <select name="questions" id="questions">
-        <option value="none" selected disabled hidden>Select an Option</option>
-        <option value="Question">Question compulsory</option>
-        <option value="Question1">Question compulsory one</option>
-        </select><br>
+                                <div class="col-12 mt-2">
+                                    <input class="form-control" type="password" name="confirm_Password" placeholder="Re-enter your Password" id="confirm_password" minlength="5" required>
+                                </div>
 
-        <b>Enter Answer:</b>
-        <input type="text" id="answer" name="answer" placeholder="Answer" required><br>
+                                <div class="col-12 mt-2">
+                                    <label class="mt-3 mr-1" for="questions"><h4>Security Question</h4></label>
+                                    <select class="form-select" id="questions" required>
+                                        <option selected disabled value="">Select a Security Question</option>
+                                        <option value="Question">Question compulsory</option>
+                                        <option value="Question1">Question mandatory</option>
+                                        <option value="Question2">Question optional</option>
+                                    </select>
+                                </div>
 
+                                <div class="col-12 mt-2">
+                                    <input class="form-control" type="text" name="answer" placeholder="Enter Answer to your Security Question" id="answer" required>
+                                </div>
 
-        <br><br>
-        
-        <button id="submitBtn" onclick="SignUpFormValidation()">Submit Your details</button>
-        
-        <div id="spinner-div" class="hidden">
-            <div class="spinner-border text-primary" role="status">
+                                <div class="form-button mt-3">
+                                    <button id="grp3p" type="submit" class="btn btn-primary mt-3" onclick="group3p()">Previous</button>
+                                    <button id="rgs" type="submit" class="btn btn-primary mt-3" onclick="SignUpFormValidation()">Register</button>
+                                </div>
+                        </div>    
+                </div>
             </div>
         </div>
+    </div>
+</div>
+<div id="spinner-div" class="hidden">
+    <div class="spinner-border text-primary" role="status">
+    </div>
+</div>
 
-        <style>
-            .hidden {
-                display: none;
-            }
+<style>
+     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 
-            .show{
-                display: flex;
-            }
+*, body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;   
+}
 
-            #tick{
-                display: none;
-            }
+html, body {
+    height: 100%;
+    background-color: #64c2e8;
+    opacity: 100%;
+    background-image:  radial-gradient(#1b1e27 2px, transparent 2px), radial-gradient(#1b1e27 2px, #64c2e8 2px);
+    background-size: 80px 80px;
+    background-position: 0 0,40px 40px;
+}
 
-            #cross{
-                display: none;
-            }
+.form-holder {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+}
 
-            #spinner-div{    
-            position:fixed;
-            padding:0;
-            margin:0;
-            justify-content: center;
-            align-items: center;
+.form-holder .form-content {
+    text-align: center;
+    display: -webkit-box;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 45px;
+    background-color: #fff;
+    border-radius: 2%;
+}
 
-            top:0;
-            left:0;
+.form-content .form-items {
+    border: 2px solid #1b1e27;
+    border-radius: 2%;
+    padding: 20px;
+    text-align: left;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
 
-            width: 100vw;
-            height: 100vh;
-            background:rgba(255,255,255,0.5);
-            }
+.form-content h3 {
+    color: #1b1e27;
+    text-align: left;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
 
-            .spinner-border{
-                width: 6rem;
-                height: 6rem;
-                border-right-color: transparent;
-                border-radius: 50%;
-            }
+.form-content h3.form-title {
+    margin-bottom: 30px;
+}
 
-        </style>
+.form-content p {
+    color: #1b1e27;
+    text-align: left;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-bottom: 30px;
+}
 
-        <div>
-            <h1 id="error">
 
-            </h1>
-        </div>
+.form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+    color: #1b1e27;
+}
+
+.form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+    width: 100%;
+    padding: 9px 20px;
+    text-align: left;
+    border: 3px solid #1b1e27;
+    outline: 0;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    color: #8D8D8D;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.btn-primary{
+    background-color: #1b1e27;
+    outline: none;
+    border: 0px;
+    box-shadow: none;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+    background-color: #495056;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none;
+}
+
+.form-content textarea {
+    width: 100%;
+    padding: 8px 20px;
+    border-radius: 6px;
+    text-align: left;
+    background-color: #1b1e27;
+    border: 0;
+    font-size: 15px;
+    font-weight: 300;
+    color: #8D8D8D;
+    height: 120px;
+    -webkit-transition: none;
+    transition: none;
+    margin-bottom: 14px;
+}
+
+.form-content textarea:hover, .form-content textarea:focus {
+    border: 0;
+    background-color: #ebeff8;
+    color: #8D8D8D;
+}
+
+.mv-up{
+    margin-top: -9px !important;
+    margin-bottom: 8px !important;
+}
+
+#grp2{
+    display: none;
+}
+
+#grp3{
+    display: none;
+}
+
+#grp2n{
+    float: right;
+}
+
+#rgs{
+    float: right;
+    background-color: #1b1e27;
+    transition: 0.3s;
+    color: #ffff;
+}
+#rgs:hover {
+  background-color: #3e8e41;
+  color: white;
+}
+</style>
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    .show{
+        display: flex;
+    }
+
+    #tick{
+        display: none;
+    }
+
+    #cross{
+        display: none;
+    }
+
+    #spinner-div{    
+    position:fixed;
+    padding:0;
+    margin:0;
+    justify-content: center;
+    align-items: center;
+
+    top:0;
+    left:0;
+
+    width: 100vw;
+    height: 100vh;
+    background:rgba(255,255,255,0.5);
+    }
+
+    .spinner-border{
+        width: 6rem;
+        height: 6rem;
+        border-right-color: transparent;
+        border-radius: 50%;
+    }
+
+</style>
+
+<style>
+    #alert{
+  display: flex;
+  align-items:center;
+  padding: 0.55rem 0.65rem 0.55rem 0.75rem;
+  border-radius:1rem;
+  min-width:100px;
+  margin-left: 15%;
+  max-width: 70%;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  box-shadow:
+  0px 3.2px 13.8px rgba(0, 0, 0, 0.02),
+  0px 7.6px 33.3px rgba(0, 0, 0, 0.028),
+  0px 14.4px 62.6px rgba(0, 0, 0, 0.035),
+  0px 25.7px 111.7px rgba(0, 0, 0, 0.042),
+  0px 48px 208.9px rgba(0, 0, 0, 0.05),
+  0px 115px 500px rgba(0, 0, 0, 0.07)
+}
+.content{
+  display: flex;
+  align-items:center;
+}
+.icon{
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border-radius:39% 61% 42% 58% / 50% 51% 49% 50%;
+  box-shadow:
+  0px 3.2px 13.8px rgba(0, 0, 0, 0.02),
+  0px 7.6px 33.3px rgba(0, 0, 0, 0.028),
+  0px 14.4px 62.6px rgba(0, 0, 0, 0.035),
+  0px 25.7px 111.7px rgba(0, 0, 0, 0.042),
+  0px 48px 208.9px rgba(0, 0, 0, 0.05),
+  0px 115px 500px rgba(0, 0, 0, 0.07)
+}
+.close{
+  background-color: transparent;
+  border:none;
+  outline:none;
+  transition:all 0.2s ease-in-out;
+  padding: 0.75rem;
+  border-radius:0.5rem;
+  cursor:pointer;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+.close:hover{
+  background-color: #fff;
+}
+
+.danger{
+  background-color: rgba(236, 77, 43, 0.2);
+  border:2px solid #EC4D2B;
+}
+.danger .icon{
+  background-color: #EC4D2B;
+}
+
+#msgs{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+</style>
 
 {%endblock%}

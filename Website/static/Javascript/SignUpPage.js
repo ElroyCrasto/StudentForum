@@ -14,14 +14,16 @@ function SignUpFormValidation() {
     var FirstNameCheck = CheckValidation(FirstName);                           //Firstname validation ends her
     var LastName = document.getElementById('lastname');  //Lastname validation starts here
     var LastNameCheck = CheckValidation(LastName);                           //Lastname validation ends here
+    var DateCheck = DateValue();
+    var YearCheck = YearRadioResult();
+    var CourseCheck = CourseRadioResult();
     var PassWordCheck = PassWordValidation();
     var SecurityQuestions = SecurityQuestion();
     var SecurityAnswers = SecurityAnswer();
 
-    if (UserNameCheck && FirstNameCheck && LastNameCheck && PassWordCheck && SecurityAnswers && SecurityQuestions) {
+    if (UserNameCheck && FirstNameCheck && LastNameCheck && DateCheck && YearCheck && CourseCheck && PassWordCheck && SecurityAnswers && SecurityQuestions) {
         $('#spinner-div').removeClass("hidden");
         $('#spinner-div').addClass("show");
-        console.log("Validation Successfull");
         SendData();
     }
 }
@@ -53,7 +55,6 @@ function CheckValidation(VariableName) {
         return false;
     }
     else {
-        console.log("No errors in " + (VariableName.attributes['name'].value));
         return true;
     }
 }
@@ -76,9 +77,85 @@ function UserNameValidation() {
         return false;
     }
     else {
-        console.log("No errors in Username");
         return true;
     }                                                             //Username Validation Completes Here
+}
+
+function DateValue() {
+    var date = document.getElementById('dob').value;
+    if (date == "") {
+        ErrorDisplay("Please Enter your Date-of-Birth");
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function YearRadioResult() {
+    var FY = document.getElementById('year1');
+    var SY = document.getElementById('year2');
+    var TY = document.getElementById('year3');
+    if (FY.checked) {
+        return true;
+    }
+    else if (SY.checked) {
+        return true;
+    }
+    else if(TY.checked){
+        return true;
+    }
+    else {
+        ErrorDisplay("Please Select your Academic Year");
+        return false;
+    }
+}
+
+function CourseRadioResult() {
+    var _CS = document.getElementById('option1');
+    var _IT = document.getElementById('option2');
+    if (_CS.checked) {
+        return true;
+    }
+    else if (_IT.checked) {
+        return true;
+    }
+    else {
+        ErrorDisplay("Please Select your Course");
+        return false;
+    }
+}
+
+function YearRadioValue() {
+    var FY = document.getElementById('year1');
+    var SY = document.getElementById('year2');
+    var TY = document.getElementById('year3');
+    if (FY.checked) {
+        return "FY";
+    }
+    else if (SY.checked) {
+        return "SY";
+    }
+    else if(TY.checked){
+        return "TY";
+    }
+    else {
+        null
+    }
+}
+
+function CourseRadioValue() {
+    var _CS = document.getElementById('option1');
+    var _IT = document.getElementById('option2');
+    if (_CS.checked) {
+        return "CS";
+    }
+    else if (_IT.checked) {
+        return "IT";
+    }
+    else {
+       null
+    }
 }
 
 function PassWordValidation() { // Password validation starts here
@@ -93,10 +170,9 @@ function PassWordValidation() { // Password validation starts here
         return false;
     }
     else if (ConfirmPassword != PassWord) {
-        alert("Passwords doesnt match")
+        ErrorDisplay("Passwords doesnt match")
     }
     else {
-        console.log("no errors in password");
         return true;
     } // Password validation ends here  
 }
@@ -104,17 +180,25 @@ function PassWordValidation() { // Password validation starts here
 function SecurityAnswer() { // This Function Validates the Security Answers 
     var answers = document.getElementById('answer').value.trim();
     if (answers == "") { ErrorDisplay("Answer cannot be Empty"); return false; }
-    else { console.log("no errors in answers"); return true; }
+    else { return true; }
 }
 
 function SecurityQuestion() { // This Function Checks if any Question is Selected or Not
     var question = document.getElementById('questions').value;
-    if (question == "none") { ErrorDisplay("Please select a Question"); return false; }
-    else { console.log("no errors in security question"); return true; }
+    if (question == "") { ErrorDisplay("Please select a Question"); return false; }
+    else { return true; }
 }
 
+let initialResult = null;
 function ErrorDisplay(msg) {
-    console.log(msg);
+    $("#alert").show();
+    document.getElementById('msgs').innerHTML = msg;
+    for (let i = 0; i < 10; i++) {
+        let currentResult = i;
+        if (initialResult === null) {
+            initialResult = currentResult;
+        }
+    }
 }
 
 function SendData() {
@@ -129,32 +213,6 @@ function SendData() {
     var _SecurityQuestion = document.getElementById('questions').value;
     var _SecurityAnswer = document.getElementById('answer').value;
 
-    function YearRadioValue() {
-        var _Fy = document.getElementById('YearFy');
-        var _Sy = document.getElementById('YearSy');
-        var _Ty = document.getElementById('YearTy');
-        if (_Fy.checked) {
-            return "FY"
-        }
-        else if (_Sy.checked) {
-            return "SY"
-        }
-        else if (_Ty.checked) {
-            return "TY"
-        }
-    }
-
-    function CourseRadioValue() {
-        var _CS = document.getElementById('CS');
-        var _IT = document.getElementById('IT');
-        if (_CS.checked) {
-            return "CS"
-        }
-        else if (_IT.checked) {
-            return "IT"
-        }
-    }
-
     payload = {
         Username: _UserName,
         FirstName: _FirstName,
@@ -166,20 +224,15 @@ function SendData() {
         SecurityQuestion: _SecurityQuestion,
         SecurityAnswer: _SecurityAnswer
     }
-
     
     var OurRequest = new XMLHttpRequest();
     OurRequest.open('POST', 'http://localhost:5000/api/SignUp', true)
     OurRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
     OurRequest.onload = function () {
         var Response = JSON.parse(this.responseText);
-        console.log(Response.Msg);
         if (Response.Status == 1) {
             $('#spinner-div').removeClass("show");
             $('#spinner-div').addClass("hidden");
-            setTimeout(function() {
-                alert(Response.Msg);
-            },20)
             window.location.replace(window.location.origin + "/Login");
         }
         else {
@@ -200,18 +253,38 @@ function CheckUserName() { // This Function Checks If the username entered is av
     OurUserName.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
     OurUserName.onload = function () {
         var Reply = JSON.parse(this.responseText);
-        console.log(Reply);
-        console.log(Reply.Msg);
         if (Reply.Status == 0) {
             $("#cross").show();
             $("#tick").hide();
-            console.log("Username already taken ");
         }
         else {
             $("#cross").hide();
             $("#tick").show();
-            console.log("Username not taken");
         }
     }
     OurUserName.send(JSON.stringify({ Username: document.getElementById('username').value }));
+}
+
+function group1() {
+    $("#grp1").hide();
+    $("#grp2").show();
+}
+
+function group2n() {
+    $("#grp2").hide();
+    $("#grp3").show();
+}
+
+function group2p() {
+    $("#grp2").hide();
+    $("#grp1").show();
+}
+
+function group3p() {
+    $("#grp3").hide();
+    $("#grp2").show();
+}
+
+function err() {
+    $(".alert").fadeOut();
 }

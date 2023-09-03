@@ -30,12 +30,11 @@ def HomePage():
 @PageRoute.route("/Login", methods=["POST", "GET"])
 def LoginPage():
     if request.method == "POST":
-        FormUsername= request.form.get("username")
-        FormPassowrd= request.form.get("password")
+        FormUsername= request.form.get("Username")
+        FormPassowrd= request.form.get("Password")
         AttemptedUser = User.query.filter_by( Username= FormUsername, Password= FormPassowrd ).first()
         if AttemptedUser == None:
-            return render_template("LoginPage.html", msg="Invalid Credentials")
-
+            return render_template("LoginPage.html", msg="display: show;")
         login_user(AttemptedUser)
         Token = TokenGeneration()
         AttemptedUser.AuthToken = Token
@@ -44,7 +43,7 @@ def LoginPage():
         Res = make_response(redirect(url_for('PageRoute.HomePage')))
         Res.set_cookie('AuthToken', Token)
         return Res
-    return render_template("LoginPage.html"), 200
+    return render_template("LoginPage.html",msg="display: none;"), 200
 
 
 @PageRoute.route("/SignUp")

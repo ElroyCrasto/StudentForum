@@ -1,6 +1,6 @@
 function LoginValidate(){
     var Form = document.getElementById('loginform');
-    var Username = document.getElementById('username').value;
+    var Username = document.getElementById('Username').value;
     var msg = document.getElementById('error');
     var regex = /\s+/;
 
@@ -12,10 +12,14 @@ function LoginValidate(){
 }
 
 function ShowPassword(){
-    var Password = document.getElementById('password');
+    var Password = document.getElementById('Password');
     if (Password.type == "password"){
         Password.type = "text";
     }else{
         Password.type = "password";
     }
+}
+
+function err() {
+    $(".alert").fadeOut();
 }
