@@ -16,6 +16,7 @@ def ShowPost():
     return render_template("Post.html")
 
 @PostRoute.route("/CreateRooms")
+@login_required
 def CreateRooms():
     from .DatabaseModels import Room, User
     try:
@@ -32,15 +33,18 @@ def CreateRooms():
         return "Rooms and Admin Created"
     except Exception as Ex:
         return f"{Ex}" + f"<br><h1>Rooms or Admin User Probably already exists.</h1>"
-    
+
 @PostRoute.route("/Rooms")
+@login_required
 def ShowRooms():
     return render_template("Rooms.html")
 
 @PostRoute.route("/RoomPage")
+@login_required
 def DisplayRoom():
     return render_template("RoomPage.html")
 
 @PostRoute.route("/ManagePost")
+@login_required
 def DeletePost():
     return render_template("ManagePost.html")

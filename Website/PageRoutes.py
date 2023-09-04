@@ -19,7 +19,7 @@ PageRoute = Blueprint("PageRoute", __name__)
 
 @PageRoute.route("/")
 def DefaultPage():
-    return render_template("DefaultPage.html"), 200
+    return render_template("HomePage.html"), 200
 
 
 @PageRoute.route("/Home")
@@ -40,7 +40,7 @@ def LoginPage():
         AttemptedUser.AuthToken = Token
         Database.session.commit()
 
-        Res = make_response(redirect(url_for('PageRoute.HomePage')))
+        Res = make_response(redirect(url_for('PostRoute.ShowRooms')))
         Res.set_cookie('AuthToken', Token)
         return Res
     return render_template("LoginPage.html",msg="display: none;"), 200
@@ -50,8 +50,8 @@ def LoginPage():
 def SignUpPage():
     return render_template("SignUpPage.html"), 200
 
-@login_required
 @PageRoute.route("/Logout")
+@login_required
 def LogoutPage():
     current_user.AuthToken = None
     Database.session.commit()
