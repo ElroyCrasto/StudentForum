@@ -5,29 +5,91 @@ Post Page
 {%endblock%}
 
 {%block head%}
-<script defer type="text/javascript" src="{{url_for('static',filename='Javascript/PostPage.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='PostPage.js')}}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background-color: #64c2e8;
+      color: #212529 !important;
+    }
+    .user{
+      text-decoration: none !important;
+      color: black !important;
+    }
+    .user:hover{
+      color: #212529 !important;
+    }
+    .main{
+      background-color: white;
+      border-color: #e7eaec !important;
+    }
+    .border{
+      border-color: #e7eaec;
+      border-radius: 10px !important;
+    }
+    .icon{
+      color: black !important;
+    }
+    .badge{
+      background-color: #1b1e27;
+    }
+    .badge:hover{
+      background-color: #2b365e;
+      color: white;
+    }
+    .main-i{
+      background-color: #9bd1e7 !important;
+      color: black;
+    }
+  </style>
 {%endblock%}
 
 {%block body%}
-<div id="post"> 
-    <div class="spinner-border text-danger" role="status" id="loading">
+
+
+<div class="container-fluid mt-5 mb-5" id="post">
+    <div class="container g-5 border border-3 rounded main">
+  
+      <div class="spinner-border text-danger" role="status" id="loading" style="display: none;">
         <span class="visually-hidden">Loading...</span>
+      </div>
+  
+  
+      <div class="mt-3 fs-5 d-flex justify-content-center" >
+        <div class="container" >
+          <a id="userlink" href="http://127.0.0.1:5000/Profile?u=Admin" class="user d-flex gap-3">
+            <i class="bi bi-person-circle icon fs-5"></i>
+            <b id="user"> admin </b>
+          </a>  
+        </div>
+        <div class="container d-flex flex-row-reverse gap-3" id="postedat">
+          Sun, 09 Jul 2023 09:03:26 GMT
+          <i class="bi bi-calendar3 icon"></i>
+        </div>
+      </div>
+  
+      
+  
+      <div class="border mt-3 mb-4 main-i">
+        <div class="container container-expand-lg mt-2" >
+          <p class="title fs-2" id="title">Title</p>
+        </div>
+        <div class="container mt-3" >
+          <span class="badge" id="type">Question</span>
+        </div>
+        <div class="container mt-3">
+          <p id="content">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque nobis, velit quas facere quisquam ea. Ratione, eius dignissimos! Esse aut eius deleniti magni expedita fugit quam explicabo, quas cum blanditiis.
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia asperiores aliquam veritatis sequi distinctio reprehenderit voluptate architecto, earum debitis adipisci rerum delectus. Quaerat, corrupti eveniet! Assumenda odit dolore fuga placeat?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum animi ea ex, eaque aut rem beatae consequatur minima nostrum reprehenderit totam quos. Aperiam iure, quae rem corrupti nulla neque beatae.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel soluta quos ducimus dignissimos, ratione consequuntur eveniet repellendus et autem adipisci eos. Totam numquam placeat, dolor neque ea quae dicta natus.
+          </p>
+        </div>
+      </div>
+  
+  
     </div>
-
-<div id="title"> </div>
-
-<div id="content"></div>
-
-<div id="user"> 
-    <a id="userlink"></a>
-</div>
-
-<div id="type"></div>
-
-<div id="postedat"></div>
-
-<div id="views"></div>
-
-</div>
+  </div>
 
 {%endblock%}
