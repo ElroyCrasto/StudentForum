@@ -43,6 +43,7 @@ function RenderHTML(data){
 
     var Title = document.createElement("a");
     Title.setAttribute("class", "forum-item-title");
+    Title.setAttribute("href", "/RoomPage?r="+data.PublicID);
 
     var SubTitle = document.createElement("div");
     SubTitle.setAttribute("class", "forum-sub-title");

@@ -33,6 +33,7 @@ function GetUserPost() {
     posts.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     posts.onload = function () {
         var Response = JSON.parse(this.responseText);
+        console.log(Response);
         if(Response.Status == 0){
             Err()
         }
@@ -43,37 +44,66 @@ function GetUserPost() {
         }
     }
     }
-    posts.send(JSON.stringify({"Username" : UserProfile}))
+    Payload = (JSON.stringify({"Username" : UserProfile}));
+    posts.send(Payload);
 }
 
 function UserPosts(data) {
-    var Post = document.createElement('div');
-    Post.setAttribute("id", "Post"); 
-    Post.setAttribute("class", "container bg-warning pt-5");
     
-    var Title = document.createElement("h3");
-    Title.setAttribute('class', 'title')
-    
-    var TitleLink = document.createElement("a");
-    TitleLink.setAttribute('class', 'titlelink')
-    TitleLink.setAttribute("href", "/Post?p="+data.ID);
-    
-    var Content = document.createElement("p");
-    Content.setAttribute('class', 'content')
-    
-    var PostedAt = document.createElement("span");
-    PostedAt.setAttribute('class', 'postedat')
+    //setting HTML elements
+    var Post = document.createElement("div");
+    Post.setAttribute("class", "forum-item");
 
-    TitleLink.insertAdjacentHTML("beforeend",data.Title);
-    Content.insertAdjacentHTML("beforeend",data.Content);
-    PostedAt.insertAdjacentHTML("beforeend",data.PostedAt);
+    var Row = document.createElement("div");
+    Row.setAttribute("class", "row");
 
-    Post.insertAdjacentElement("beforeend",Title);
-    Title.insertAdjacentElement("beforeend",TitleLink);
-    Post.insertAdjacentElement("beforeend",Content); 
-    Post.insertAdjacentElement("beforeend",PostedAt);
+    var IconDiv = document.createElement("div");
+    IconDiv.setAttribute("class", "col-md-9");
+    
+    var InIconDiv = document.createElement("div");
+    InIconDiv.setAttribute("class", "forum-icon");
 
-    document.getElementById('posts').insertAdjacentElement("beforeend", Post);
+    var Icon = document.createElement("div");
+    Icon.setAttribute("class", "fa fa-bolt");
+
+    var Title = document.createElement("a");
+    Title.setAttribute("class", "forum-item-title");
+    Title.setAttribute("href", "/Post?p="+data.ID);
+
+    var SubTitle = document.createElement("div");
+    SubTitle.setAttribute("class", "forum-sub-title");
+
+    var PostsDiv = document.createElement("div");
+    PostsDiv.setAttribute("class", "col md-1 forum-info");
+
+    var Posts = document.createElement("span");
+    Posts.setAttribute("class", "post-count");
+
+    var SmallDiv = document.createElement("div");
+
+    var Small = document.createElement("small");
+
+    //Passing values in the Elements
+    Title.insertAdjacentHTML("beforeend", data.Title);
+    SubTitle.insertAdjacentHTML("beforeend", data.Content);
+    Posts.insertAdjacentHTML("beforeend", data.Posts);
+    Small.insertAdjacentText("beforeend", "Posts");
+    
+    //Passing all Elements in main div
+    InIconDiv.insertAdjacentElement("beforeend", Icon);
+    IconDiv.insertAdjacentElement("beforeend", InIconDiv);
+    IconDiv.insertAdjacentElement("beforeend", Title);
+    IconDiv.insertAdjacentElement("beforeend", SubTitle);
+    Row.insertAdjacentElement("beforeend", IconDiv);
+    PostsDiv.insertAdjacentElement("beforeend", Posts);
+    PostsDiv.insertAdjacentElement("beforeend", SmallDiv);
+    SmallDiv.insertAdjacentElement("beforeend",Small);
+    Row.insertAdjacentElement("beforeend", PostsDiv);
+    Post.insertAdjacentElement("beforeend", Row);
+
+
+    //Posting it on page
+    document.getElementById("body").insertAdjacentElement("beforeend", Post);
 
 };
 
@@ -83,10 +113,10 @@ function Err() {
     Post.setAttribute("class", "container bg-warning pt-5");
 
     var Msg = document.createElement("h3");
-    Msg.setAttribute('class', 'err')
+    Msg.setAttribute('class', 'err');
 
-    Msg.insertAdjacentHTML("beforeend", "No Viewable Post")
-    Post.insertAdjacentElement("beforeend", Msg)
+    Msg.insertAdjacentHTML("beforeend", "No Viewable Post");
+    Post.insertAdjacentElement("beforeend", Msg);
 
     document.getElementById('posts').insertAdjacentElement("beforeend", Post);
 }
