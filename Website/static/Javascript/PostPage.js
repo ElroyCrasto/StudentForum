@@ -35,16 +35,14 @@ var title = document.getElementById("title");
 var content = document.getElementById("content");
 var type = document.getElementById("type");
 var postedat = document.getElementById("postedat");
-var views = document.getElementById("views");
 var user = document.getElementById("user");
 var link = document.getElementById("userlink");
 
-title.insertAdjacentHTML('beforeend', data.Title);
-content.insertAdjacentHTML('beforeend', data.Content);
-type.insertAdjacentHTML('beforeend', data.Type);
-postedat.insertAdjacentHTML('beforeend', data.PostedAt);
-views.insertAdjacentHTML('beforeend', data.Views);
-link.insertAdjacentHTML('beforeend', data.User);
+title.innerText = data.Title;
+content.innerText = data.Content;
+type.innerText = data.Type;
+postedat.innerText = data.PostedAt;
+user.innerText = data.User;
 link.setAttribute("href", ("/Profile?u=" + data.User));
 }
 

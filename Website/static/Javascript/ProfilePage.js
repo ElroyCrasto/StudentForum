@@ -73,12 +73,6 @@ function UserPosts(data) {
     var SubTitle = document.createElement("div");
     SubTitle.setAttribute("class", "forum-sub-title");
 
-    var PostsDiv = document.createElement("div");
-    PostsDiv.setAttribute("class", "col md-1 forum-info");
-
-    var Posts = document.createElement("span");
-    Posts.setAttribute("class", "post-count");
-
     var SmallDiv = document.createElement("div");
 
     var Small = document.createElement("small");
@@ -86,7 +80,6 @@ function UserPosts(data) {
     //Passing values in the Elements
     Title.insertAdjacentHTML("beforeend", data.Title);
     SubTitle.insertAdjacentHTML("beforeend", data.Content);
-    Posts.insertAdjacentHTML("beforeend", data.Posts);
     Small.insertAdjacentText("beforeend", "Posts");
     
     //Passing all Elements in main div
@@ -95,10 +88,7 @@ function UserPosts(data) {
     IconDiv.insertAdjacentElement("beforeend", Title);
     IconDiv.insertAdjacentElement("beforeend", SubTitle);
     Row.insertAdjacentElement("beforeend", IconDiv);
-    PostsDiv.insertAdjacentElement("beforeend", Posts);
-    PostsDiv.insertAdjacentElement("beforeend", SmallDiv);
     SmallDiv.insertAdjacentElement("beforeend",Small);
-    Row.insertAdjacentElement("beforeend", PostsDiv);
     Post.insertAdjacentElement("beforeend", Row);
 
 

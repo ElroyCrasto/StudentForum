@@ -16,7 +16,6 @@ def ShowPost():
     return render_template("Post.html")
 
 @PostRoute.route("/CreateRooms")
-@login_required
 def CreateRooms():
     from .DatabaseModels import Room, User
     try:
@@ -28,7 +27,10 @@ def CreateRooms():
         Room4 = Room(Title="FYIT", Description="Official Room of FYIT", Course="IT", Year="FY", PublicID=TokenGeneration(Room, "PublicID"))
         Room5 = Room(Title="SYIT", Description="Official Room of SYIT", Course="IT", Year="SY", PublicID=TokenGeneration(Room, "PublicID"))
         Room6 = Room(Title="TYIT", Description="Official Room of TYIT", Course="IT", Year="TY", PublicID=TokenGeneration(Room, "PublicID"))
-        Database.session.add_all([Room1,Room2,Room3,Room4,Room5,Room6,Admin])
+        Room7 = Room(Title="General CS", Description="General CS Room", Course="CS", Year="ALL", PublicID=TokenGeneration(Room, "PublicID"))
+        Room8 = Room(Title="General IT", Description="General IT Room", Course="IT", Year="ALL", PublicID=TokenGeneration(Room, "PublicID"))
+        Room9 = Room(Title="General IT/CS", Description="General IT/CS Room", Course="ALL", Year="ALL", PublicID=TokenGeneration(Room, "PublicID"))
+        Database.session.add_all([Room1,Room2,Room3,Room4,Room5,Room6,Room7,Room8,Room9,Admin])
         Database.session.commit()
         return "Rooms and Admin Created"
     except Exception as Ex:

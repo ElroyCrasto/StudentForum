@@ -39,46 +39,57 @@ function ShowRoomsDetails(){
 
 
 function RenderHTML(data){
-    //setting HTML elements
-    var Post = document.createElement("div");
-    Post.setAttribute("id", "Post");
+     //setting HTML elements
+     var Rooms = document.createElement("div");
+     Rooms.setAttribute("class", "forum-item");
+ 
+     var Row = document.createElement("div");
+     Row.setAttribute("class", "row");
 
-    var Title = document.createElement("h3");
-    Title.setAttribute("class", "title");
+     var IconDiv = document.createElement("div");
+     IconDiv.setAttribute("class", "col-md-9");
+ 
+     var Title = document.createElement("a");
+     Title.setAttribute("class", "forum-item-title");
+     Title.setAttribute("href", "/Post?p="+data.PublicID);
+ 
+     var SubTitle = document.createElement("div");
+     SubTitle.setAttribute("class", "forum-sub-title");
+ 
+     var PostsDiv = document.createElement("div");
+     PostsDiv.setAttribute("class", "col md-1 forum-info");
+ 
+     var Posts = document.createElement("span");
+     Posts.setAttribute("class", "post-count");
+ 
+     var SmallDiv = document.createElement("div");
+ 
+     var Small = document.createElement("small");
 
-    var TitleLink = document.createElement("a");
-    TitleLink.setAttribute("href", "/Post?p="+data.PublicID);
-    TitleLink.setAttribute("class", "TitleLink");
-
-    var Content = document.createElement("p");
-    Content.setAttribute("class", "content");
-
-    var Views = document.createElement("div");
-    Views.setAttribute("class", "views");
-
-    var User = document.createElement("a");
-    User.setAttribute("href", "/Profile?u="+data.User);
-    User.setAttribute("class", "username");
-
-    var PostedAt = document.createElement("span");
-    PostedAt.setAttribute("class", "postedat");
-
-    //Passing values in the Elements
-    TitleLink.insertAdjacentHTML("beforeend",data.Title);
-    Content.insertAdjacentHTML("beforeend",data.Content);
-    Views.insertAdjacentHTML("beforeend",data.Views);
-    User.insertAdjacentHTML("beforeend",data.User);
-    PostedAt.insertAdjacentHTML("beforeend",data.PostedAt);
-    
-    //Passing all Elements in main div
-    Post.insertAdjacentElement("beforeend",Title);
-    Title.insertAdjacentElement("beforeend",TitleLink);
-    Post.insertAdjacentElement("beforeend",Content);
-    Post.insertAdjacentElement("beforeend",Views);
-    Post.insertAdjacentElement("beforeend",User);
-    Post.insertAdjacentElement("beforeend",PostedAt);
-
-    //Posting it on page
-    document.getElementById("Posts").insertAdjacentElement("beforeend", Post);
-
-};
+     const d = new Date(data.PostedAt);
+     var dat = d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear(); 
+ 
+ 
+    //Passing values to elements
+     Title.insertAdjacentHTML("beforeend", data.Title);
+     SubTitle.insertAdjacentHTML("beforeend", data.Content);
+     Posts.insertAdjacentHTML("beforeend", data.User);
+     Small.insertAdjacentText("beforeend", "Posted At: "+dat);
+ 
+ 
+     //Passing elements to divs
+     IconDiv.insertAdjacentElement("beforeend", Title);
+     IconDiv.insertAdjacentElement("beforeend", SubTitle);
+     Row.insertAdjacentElement("beforeend", IconDiv);
+     PostsDiv.insertAdjacentElement("beforeend", Posts);
+     PostsDiv.insertAdjacentElement("beforeend", SmallDiv);
+     SmallDiv.insertAdjacentElement("beforeend",Small);
+     Row.insertAdjacentElement("beforeend", PostsDiv);
+     Rooms.insertAdjacentElement("beforeend", Row);
+ 
+ 
+     //Posting it on page
+     document.getElementsByClassName("ibox-content forum-container")[0].insertAdjacentElement("beforeend", Rooms);
+     
+ 
+ };

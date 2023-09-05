@@ -191,7 +191,7 @@ color: #070707; /* Set the text color for navigation links */
     a.forum-item-title {
       color: inherit;
       display: block;
-      font-size: 18px;
+      font-size: 25px;
       font-weight: 600;
       text-decoration: none;
     }

@@ -190,7 +190,7 @@ class GetRooms(Resource):
             return jsonify({"Status":0,"Msg":"Invalid Token"})
         if CurrentUser.Course == "ALL" and CurrentUser.Year == "ALL": RoomsData = Room.query.all()
         else:
-            RoomsData = Room.query.filter(Room.Year.in_([CurrentUser.Year, "ALL"])).filter(Room.Course.in_([CurrentUser.Course, "All"])).all()
+            RoomsData = Room.query.filter(Room.Year.in_([CurrentUser.Year, "ALL"])).filter(Room.Course.in_([CurrentUser.Course, "ALL"])).all()
         return jsonify({"RoomsList":[{"Title":i.Title,"Description":i.Description, "PublicID":i.PublicID, "Posts":len(i.PID)} for i in RoomsData], "Status":1 , "Msg":"Request Successful"})
 
 class GetUserPost(Resource):

@@ -8,6 +8,7 @@
     </link>
     <script defer src="{{ url_for('static', filename='Bootstrap/bootstrap.bundle.js') }}"></script>
     <script src="{{url_for('static',filename='jQuery/jquery-3.7.0.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='CSS/Rooms.css')}}">
     <title>{% block Title %} {% endblock %}</title>
     {% block head %}{% endblock %}
 </head>
@@ -23,14 +24,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                     <div>
-                        <a class="nav-link active p-2" aria-current="page" ><b>Upload</b></a>
+                        <a class="nav-link active p-2" aria-current="page" href="/PostUpload"><b>Upload</b></a>
                     </div>
                     
                 <div class="center">
                     <span></span>
                 </div>
-                <a class="nav-link p-2" href="profile.html"><b>Profile</b></a><br>
-                <button class="login-btn">Log out</button>
+                <br>
+                <a href="/Logout"><button class="login-btn">Log out</button></a>
             </div>
         </div>
         <!--img src="avatar.jpg" alt="Avatar" class="avatar"-->
