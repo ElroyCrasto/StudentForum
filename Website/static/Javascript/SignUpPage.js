@@ -226,7 +226,7 @@ function SendData() {
     }
     
     var OurRequest = new XMLHttpRequest();
-    OurRequest.open('POST', 'http://localhost:5000/api/SignUp', true)
+    OurRequest.open('POST', '/api/SignUp', true)
     OurRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
     OurRequest.onload = function () {
         var Response = JSON.parse(this.responseText);

@@ -84,3 +84,29 @@ function RenderHTML(data){
     
 
 };
+
+function DisplayUsers(){
+    var GetActiveUsers = new XMLHttpRequest();
+    GetActiveUsers.open("GET", "/api/WebsiteInfo");
+    GetActiveUsers.onreadystatechange = function(){
+        if(GetActiveUsers.readyState!=4){
+            $(document).ready(function(){
+                $("#loading").show();
+            });
+        }else{
+            $(document).ready(function(){
+                $("#loading").hide();
+        });
+    }
+}
+
+GetActiveUsers.onload = function(){
+    var GetData = JSON.parse(GetActiveUsers.responseText);
+    console.log(GetData);
+    UserCount = GetData.UserCount;
+    document.getElementById("UsersCount").innerText = UserCount; 
+};
+GetActiveUsers.send();
+};
+
+

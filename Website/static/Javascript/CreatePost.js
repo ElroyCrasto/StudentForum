@@ -22,16 +22,11 @@ document.getElementById("btn").addEventListener("click", function() {
     var content = document.getElementById("Content").value;
     var type = document.getElementById("Type").value;
     var room = document.getElementById("RoomName").value;
-    var pattern = /^[a-zA-Z0-9 ,.\?\(\)!]+$/;
 
     if (title.trim() === "") {
         alert("No empty Title allowed!");
-    } else if (!pattern.test(title)) {
-        alert("Only letters, digits, spaces, and the characters , . ? ( ) ! are allowed in the title!");
     } else if (content.trim() === "") {
         alert("No empty content allowed!");
-    } else if (!pattern.test(content)) {
-        alert("Only letters, digits, spaces, and the characters , . ? ( ) ! are allowed in the content!");
     } else if (type === "Default") {
         alert("Please select a question type");
     }else{

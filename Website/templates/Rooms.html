@@ -13,7 +13,7 @@ Rooms
 
 {%block body%}
 
-<body onload="DisplayRooms()">
+<body onload="DisplayRooms();DisplayUsers()">
     <div id="Rooms">
         <div class="spinner-border text-danger" role="status" id="loading">
             <span class="visually-hidden">Loading...</span>
@@ -53,7 +53,7 @@ Rooms
         </div>
         <div class="count-item">
             <h3>Active Members:</h3>
-            <span id="active-members"><b>50</b></span>
+            <span id="active-members"><b id="UsersCount"></b></span>
         </div>
     </div>
 </div>
