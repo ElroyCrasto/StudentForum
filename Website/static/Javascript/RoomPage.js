@@ -54,7 +54,7 @@ function RenderHTML(data){
      Title.setAttribute("href", "/Post?p="+data.PublicID);
  
      var SubTitle = document.createElement("div");
-     SubTitle.setAttribute("class", "forum-sub-title");
+     SubTitle.setAttribute("class", "forum-sub-title text-truncate");
  
      var PostsDiv = document.createElement("div");
      PostsDiv.setAttribute("class", "col md-1 forum-info");

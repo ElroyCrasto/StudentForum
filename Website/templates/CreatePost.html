@@ -8,41 +8,45 @@ Create Post
 {%endblock%}
 
 {%block body%}
-<div class="container">
-<br><br>
+<div class="container" >
+  <br><br>
+  <div class="container rounded" style="background-color: white;">
 
-<h1 class="display-1 text-center"> Create a Post </h1><br><br>
-
-<form id="Postform"  style="background-color: #53a2c1;" class="pt-3 ps-3">
-<div class="row mb-3">
-  <label for="colFormLabel" class="col-sm-2 col-form-label" style="font-size: 1.5rem;">Post Title</label>
-  <div class="col-sm-10">
-    <input type="text" class="form-control w-75" id="Title" placeholder="Title of the Post">
-  </div><br><br>
-</div>
-<div class="row">
-  <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg" style="font-size: 1.5rem;">Post Description</label>
-  <div class="col-sm-10">
-    <input type="text" class="form-control form-control-lg w-75" id="Content" placeholder="Description of the Post">
+    <h1 class="display-1 text-center"> Create a Post </h1><br><br>
+    <form id="Postform"  class="pt-3 ps-3">
+      <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label" style="font-size: 1.5rem;">Post Title</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control w-75" id="Title" placeholder="Title of the Post">
+      </div><br><br>
+    </div>
+    <div class="row">
+      <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg" style="font-size: 1.5rem;">Post
+        Description</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control form-control-lg w-75" id="Content" placeholder="Description of the Post">
+        </div>
+      </div><br><br>
+      <fieldset class="row mb-3">
+        <legend class="col-form-label col-sm-2 pt-0" style="font-size: 1.5rem;">Post Type</legend>
+        <select class="form-select w-75" aria-label="Default select example" id="Type">
+          <option selected value="Default">Select a Post Type</option>
+          <option value="General">General</option>
+          <option value="Idea">Idea</option>
+          <option value="Opinion">Opinion</option>
+          <option value="Other">Other</option>
+        </select>
+      </fieldset><br><br>
+      <fieldset class="row mb-3">
+        <legend class="col-form-label col-sm-2 pt-0" style="font-size: 1.5rem;">Post Room</legend>
+        <select id="RoomName" class="w-75"> </select>
+      </fieldset><br><br>
+    </form>
+    <button id="btn" class="btn btn-danger">Submit</button>
   </div>
-</div><br><br>
-<fieldset class="row mb-3">
-    <legend class="col-form-label col-sm-2 pt-0" style="font-size: 1.5rem;">Post Type</legend>
-    <select class="form-select w-75" aria-label="Default select example" id="Type">
-      <option selected value="Default">Select a Post Type</option >
-      <option value="General">General</option>
-      <option value="Question">Questions</option>
-    </select>
-  </fieldset><br><br>
-  <fieldset class="row mb-3">
-    <legend class="col-form-label col-sm-2 pt-0" style="font-size: 1.5rem;">Post Room</legend>
-    <select id="RoomName" class="w-75"> </select> 
-  </fieldset><br><br>
-</form>
-<br><br>
-<button id="btn">Submit</button>
-<div class="spinner-border text-danger" role="status" id="loading" style="display: none;">
-  <span class="visually-hidden">Loading...</span>
-</div>
+    <br><br>
+    <div class="spinner-border text-danger" role="status" id="loading" style="display: none;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
 </div>
 {%endblock%}

@@ -57,7 +57,7 @@ document.getElementById("btn").addEventListener("click", function() {
       var response = JSON.parse(makepost.responseText);
       console.log(response);
       if(response.Status == 1){
-      alert("Post Created Successfully!!!");
+      //alert("Post Created Successfully!!!");
       window.location.replace(window.location.origin + "/Rooms");
       }else{
         console.log(response.Msg);

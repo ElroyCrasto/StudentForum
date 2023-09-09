@@ -124,7 +124,7 @@ class MakePost(Resource):
         
         # Type Validation
         Type = Data["Type"].strip()
-        if Type not in ["Question","General"]:
+        if Type not in ["Opinion","General","Idea","Other"]:
             return jsonify({"Status":0,"Msg":"Invalid Post Type!"})
 
         # Token Validation
