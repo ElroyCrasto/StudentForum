@@ -59,6 +59,11 @@ Login
     </div>
 </div>
 
+<div id="spinner-div" class="hidden">
+    <div class="spinner-border text-primary" role="status">
+    </div>
+</div>
+
 <style>
      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 
@@ -252,6 +257,34 @@ html, body {
     align-items: center;
     text-align: center;
 }
+
+#spinner-div{    
+ position:fixed;
+ padding:0;
+ margin:0;
+ justify-content: center;
+ align-items: center;
+ top:0;
+ left:0;
+ width: 100vw;
+ height: 100vh;
+ background:rgba(255,255,255,0.5);
+ }
+
+ .spinner-border{
+    width: 6rem;
+    height: 6rem;
+    border-right-color: transparent;
+    border-radius: 50%;
+ }
+
+ .hidden {
+    display: none;
+    }
+
+.show{
+   display: flex;
+  }
 </style>
 
 {%endblock%}

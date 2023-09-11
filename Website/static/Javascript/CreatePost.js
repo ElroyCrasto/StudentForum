@@ -7,6 +7,14 @@
     };
     request.send();
 
+    function err() {
+        $(".alert").fadeOut();
+    }
+
+    function ErrorDisplay(msg) {
+        $("#alert").show();
+        document.getElementById('msgs').innerHTML = msg;    
+    }
 
 function renderroom(data){
 
@@ -24,11 +32,11 @@ document.getElementById("btn").addEventListener("click", function() {
     var room = document.getElementById("RoomName").value;
 
     if (title.trim() === "") {
-        alert("No empty Title allowed!");
+        ErrorDisplay("Post's Title cant be empty!");
     } else if (content.trim() === "") {
-        alert("No empty content allowed!");
+        ErrorDisplay("Post's Description cant be empty!");
     } else if (type === "Default") {
-        alert("Please select a question type");
+        ErrorDisplay("Please select your question type");
     }else{
 
 
@@ -58,8 +66,11 @@ document.getElementById("btn").addEventListener("click", function() {
       console.log(response);
       if(response.Status == 1){
       //alert("Post Created Successfully!!!");
+      $('#spinner-div').removeClass("hidden");            
+      $('#spinner-div').addClass("show");
       window.location.replace(window.location.origin + "/Rooms");
-      }else{
+      }
+      else{
         console.log(response.Msg);
       }
   };

@@ -9,17 +9,18 @@ var Space = " ";
 
 function SignUpFormValidation() {
     //This Function Validates the Form and Sends Data to their respective Api's
-    var UserNameCheck = UserNameValidation();
-    var FirstName = document.getElementById('firstname'); //Firstname validation starts here
-    var FirstNameCheck = CheckValidation(FirstName);                           //Firstname validation ends her
+    
+    var SecurityAnswers = SecurityAnswer();
+    var SecurityQuestions = SecurityQuestion();
+    var PassWordCheck = PassWordValidation();
+    var CourseCheck = CourseRadioResult();
+    var YearCheck = YearRadioResult();
+    var DateCheck = DateValue();
     var LastName = document.getElementById('lastname');  //Lastname validation starts here
     var LastNameCheck = CheckValidation(LastName);                           //Lastname validation ends here
-    var DateCheck = DateValue();
-    var YearCheck = YearRadioResult();
-    var CourseCheck = CourseRadioResult();
-    var PassWordCheck = PassWordValidation();
-    var SecurityQuestions = SecurityQuestion();
-    var SecurityAnswers = SecurityAnswer();
+    var FirstName = document.getElementById('firstname'); //Firstname validation starts here
+    var FirstNameCheck = CheckValidation(FirstName);                           //Firstname validation ends her
+    var UserNameCheck = UserNameValidation();
 
     if (UserNameCheck && FirstNameCheck && LastNameCheck && DateCheck && YearCheck && CourseCheck && PassWordCheck && SecurityAnswers && SecurityQuestions) {
         $('#spinner-div').removeClass("hidden");
@@ -35,19 +36,19 @@ function CheckValidation(VariableName) {
         return false;
     }
     else if (VariableName.value.match(SpecialCharacters)) {
-        ErrorDisplay((VariableName.attributes['name'].value) + " cannot contain Special characters");
+        ErrorDisplay((VariableName.attributes['name'].value) + " Cannot contain special characters");
         return false;
     }
     else if (VariableName.value.match(Numbers)) {
-        ErrorDisplay((VariableName.attributes['name'].value) + " cannot contain numbers");
+        ErrorDisplay((VariableName.attributes['name'].value) + " Cannot contain numbers");
         return false;
     }
     else if (VariableName.value.match(CharactersAndNumbers)) {
-        ErrorDisplay((VariableName.attributes['name'].value) + " cannot contain Numbers and Special Characters");
+        ErrorDisplay((VariableName.attributes['name'].value) + " Cannot contain numbers and special characters");
         return false;
     }
     else if (!(VariableName.value.match(Alphabets))) {
-        ErrorDisplay("No Numbers or Special Characters Allowed with " + (VariableName.attributes['name'].value));
+        ErrorDisplay("No numbers,spaces or special characters allowed with " + (VariableName.attributes['name'].value));
         return false;
     }
     else if (VariableName.value.match(Space)) {
@@ -63,10 +64,10 @@ function UserNameValidation() {
     // This Function Validates the UserName
     var UserName = document.getElementById('username').value;
     if (UserName == "") {
-        ErrorDisplay("Username Cannot be Empty");
+        ErrorDisplay("Username cannot be empty");
     }
     else if (!(UserName.match(AlphaNumeric))) {
-        ErrorDisplay("no Special characters allowed with username");
+        ErrorDisplay("No special characters allowed with username");
     }
     else if (UserName.match(Space)) {
         ErrorDisplay("No white spaces allowed in between");
@@ -84,7 +85,7 @@ function UserNameValidation() {
 function DateValue() {
     var date = document.getElementById('dob').value;
     if (date == "") {
-        ErrorDisplay("Please Enter your Date-of-Birth");
+        ErrorDisplay("Please enter your date of birth");
         return false;
     }
     else{
@@ -106,7 +107,7 @@ function YearRadioResult() {
         return true;
     }
     else {
-        ErrorDisplay("Please Select your Academic Year");
+        ErrorDisplay("Please select your Academic year");
         return false;
     }
 }
@@ -121,7 +122,7 @@ function CourseRadioResult() {
         return true;
     }
     else {
-        ErrorDisplay("Please Select your Course");
+        ErrorDisplay("Please select your Course");
         return false;
     }
 }
@@ -162,11 +163,11 @@ function PassWordValidation() { // Password validation starts here
     var PassWord = document.getElementById('password').value; 
     var ConfirmPassword = document.getElementById('confirm_password').value;
     if (PassWord == "") {
-        ErrorDisplay("please enter password");
+        ErrorDisplay("Please enter password");
         return false;
     }
     else if (PassWord.length < 5) {
-        ErrorDisplay("password should atleast contain 5 characters");
+        ErrorDisplay("Password should atleast contain 5 characters");
         return false;
     }
     else if (ConfirmPassword != PassWord) {
@@ -179,13 +180,13 @@ function PassWordValidation() { // Password validation starts here
 
 function SecurityAnswer() { // This Function Validates the Security Answers 
     var answers = document.getElementById('answer').value.trim();
-    if (answers == "") { ErrorDisplay("Answer cannot be Empty"); return false; }
+    if (answers == "") { ErrorDisplay("Answer to security question cannot be empty"); return false; }
     else { return true; }
 }
 
 function SecurityQuestion() { // This Function Checks if any Question is Selected or Not
     var question = document.getElementById('questions').value;
-    if (question == "") { ErrorDisplay("Please select a Question"); return false; }
+    if (question == "") { ErrorDisplay("Please select a security question"); return false; }
     else { return true; }
 }
 
@@ -256,10 +257,16 @@ function CheckUserName() { // This Function Checks If the username entered is av
         if (Reply.Status == 0) {
             $("#cross").show();
             $("#tick").hide();
+            var err = document.getElementById('errmsg');
+            err.textContent = Reply.Msg;
+            err.style.color = "red";
         }
         else {
             $("#cross").hide();
             $("#tick").show();
+            var err = document.getElementById('errmsg');
+            err.textContent = "Username Available";
+            err.style.color = "green";
         }
     }
     OurUserName.send(JSON.stringify({ Username: document.getElementById('username').value }));

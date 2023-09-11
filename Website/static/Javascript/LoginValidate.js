@@ -7,6 +7,8 @@ function LoginValidate(){
     if (Username.match(regex) || Username == ''){
         msg.innerHTML="Please Enter Valid Username";
     }else{
+        $('#spinner-div').removeClass("hidden");            
+        $('#spinner-div').addClass("show");
         Form.submit()
     }
 }

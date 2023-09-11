@@ -8,6 +8,33 @@ Create Post
 {%endblock%}
 
 {%block body%}
+
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+  </symbol>
+  <symbol id="info-fill" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+  <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+</svg>
+<br><br>
+<div class="danger alert mt-5" id="alert" style="display: none;" role="alert">
+  <div class="content">
+    <div class="icon">
+      <svg height="50" viewBox="0 0 512 512" width="50" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M449.07,399.08,278.64,82.58c-12.08-22.44-44.26-22.44-56.35,0L51.87,399.08A32,32,0,0,0,80,446.25H420.89A32,32,0,0,0,449.07,399.08Zm-198.6-1.83a20,20,0,1,1,20-20A20,20,0,0,1,250.47,397.25ZM272.19,196.1l-5.74,122a16,16,0,0,1-32,0l-5.74-121.95v0a21.73,21.73,0,0,1,21.5-22.69h.21a21.74,21.74,0,0,1,21.73,22.7Z"/></svg>
+  </div>
+    <p id="msgs"> </p>
+  </div>
+  <button class="close" id="close" onclick="err()">
+   <svg height="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#69727D" d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z"/></svg>
+  </button>
+</div>
+</div>
+
+<!--
 <div class="container" >
   <br><br>
   <div class="container rounded" style="background-color: white;">
@@ -17,7 +44,7 @@ Create Post
       <div class="row mb-3">
         <label for="colFormLabel" class="col-sm-2 col-form-label" style="font-size: 1.5rem;">Post Title</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control w-75" id="Title" placeholder="Title of the Post">
+        <input type="text" class="form-control" id="Title" placeholder="Title of the Post">
       </div><br><br>
     </div>
     <div class="row">
@@ -37,16 +64,287 @@ Create Post
           <option value="Other">Other</option>
         </select>
       </fieldset><br><br>
-      <fieldset class="row mb-3">
+  <fieldset class="row mb-3">
         <legend class="col-form-label col-sm-2 pt-0" style="font-size: 1.5rem;">Post Room</legend>
         <select id="RoomName" class="w-75"> </select>
       </fieldset><br><br>
     </form>
-    <button id="btn" class="btn btn-danger">Submit</button>
+    <button id="btn" class="btn btn-danger">Submit</button> 
   </div>
     <br><br>
     <div class="spinner-border text-danger" role="status" id="loading" style="display: none;">
       <span class="visually-hidden">Loading...</span>
     </div>
+</div> -->
+<br>
+<div class="form-body container col-xl-8 col-lg-8 col-md-10 col-sm-12 col-12">
+  <div class="row">
+      <div class="form-holder">
+          <div class="form-content container col-12">
+              <div class="form-items container col-12">
+                  <h2><b>Create Post</b></h2>
+                  <p>Fill in the data below.</p>
+                  
+                  <form id="Postform"  class="pt-3 ps-3">
+                      <div class="row">
+                        <label for="colFormLabel"></label><h4>Post Title</h4></label><br><br>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Title" placeholder="Title of the Post">
+                      </div><br><br>
+                    </div>
+
+                    <div class="row">
+                      <label for="colFormLabelLg" class="col-form-label-lg" ></label><h4>Post
+                        Description</h4></label><br><br>
+                        <div class="col-sm-10">
+                          <textarea class="form-control form-control-lg" id="Content" placeholder="Description of the Post" style="width: 100%;
+                          padding: 9px 20px; text-align: left; border: 3px solid #1b1e27; outline: 0; border-radius: 6px; background-color: #fff; font-size: 15px; font-weight: 300; color: #8D8D8D; -webkit-transition: all 0.3s ease; transition: all 0.3s ease; "></textarea>
+                        </div><br><br>
+                      </div><br>
+
+                      <fieldset class="row">
+                        <legend></label><h4>Post Type</h4></legend>
+                        <select class="form-select" aria-label="Default select example" id="Type" style="margin-left: 2%; width: 90%;">
+                          <option selected value="Default"><h4>Select a Post Type</h4></option>
+                          <option value="General">General</option>
+                          <option value="Idea">Idea</option>
+                          <option value="Opinion">Opinion</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </fieldset><br>
+
+                      <fieldset class="row">
+                        <legend></label><h4>Post Room</h4></legend>
+                        <select id="RoomName" style="margin-left: 2%; width: 90%;"> </select>
+                      </fieldset><br><br>
+                  </form>
+
+                  <button id="btn" class="btn">Upload</button>
+
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
+
+<div id="spinner-div" class="hidden">
+  <div class="spinner-border text-primary" role="status">
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
+*, body {
+ font-family: 'Poppins', sans-serif;
+ font-weight: 400;
+ -webkit-font-smoothing: antialiased;
+ text-rendering: optimizeLegibility;
+ -moz-osx-font-smoothing: grayscale;   
+}
+
+html, body {
+ height: 100%;
+ background-color: #64c2e8;
+ opacity: 100%;
+ background-image:  radial-gradient(#1b1e27 2px, transparent 2px), radial-gradient(#1b1e27 2px, #64c2e8 2px);
+ background-size: 80px 80px;
+ background-position: 0 0,40px 40px;
+}
+
+.form-holder {
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+}
+
+.form-holder .form-content {
+ text-align: center;
+ display: -webkit-box;
+ -webkit-justify-content: center;
+ justify-content: center;
+ -webkit-align-items: center;
+ align-items: center;
+ padding: 45px;
+ background-color: #fff;
+ border-radius: 2%;
+}
+
+.form-content .form-items {
+ border: 2px solid #1b1e27;
+ border-radius: 2%;
+ padding: 20px;
+ text-align: left;
+ -webkit-transition: all 0.4s ease;
+ transition: all 0.4s ease;
+}
+
+.form-content h3 {
+ color: #1b1e27;
+ text-align: left;
+ font-size: 28px;
+ font-weight: 600;
+ margin-bottom: 5px;
+}
+
+.form-content h3.form-title {
+ margin-bottom: 30px;
+}
+
+.form-content p {
+ color: #1b1e27;
+ text-align: left;
+ font-size: 17px;
+ font-weight: 300;
+ line-height: 20px;
+ margin-bottom: 30px;
+}
+
+
+.form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+ color: #1b1e27;
+}
+
+.form-content input[type=text], .form-content select {
+ padding: 9px 20px;
+ text-align: left;
+ border: 3px solid #1b1e27;
+ outline: 0;
+ border-radius: 6px;
+ background-color: #fff;
+ font-size: 15px;
+ font-weight: 300;
+ color: #8D8D8D;
+ -webkit-transition: all 0.3s ease;
+ transition: all 0.3s ease;
+}
+
+.btn-primary{
+ background-color: #1b1e27;
+ outline: none;
+ border: 0px;
+ box-shadow: none;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+ background-color: #495056;
+ outline: none !important;
+ border: none !important;
+ box-shadow: none;
+}
+
+.mv-up{
+ margin-top: -9px !important;
+ margin-bottom: 8px !important;
+}
+
+#btn{
+ float: left;
+ background-color: #1b1e27;
+ transition: 0.3s;
+ color: #ffff;
+ margin-left: 3%;
+}
+#btn:hover {
+background-color: #3e8e41;
+color: white;
+}
+</style>
+
+<style>
+
+.hidden {
+        display: none;
+    }
+
+.show{
+       display: flex;
+  }
+
+ #spinner-div{    
+ position:fixed;
+ padding:0;
+ margin:0;
+ justify-content: center;
+ align-items: center;
+ top:0;
+ left:0;
+ width: 100vw;
+ height: 100vh;
+ background:rgba(255,255,255,0.5);
+ }
+
+ .spinner-border{
+     width: 6rem;
+     height: 6rem;
+     border-right-color: transparent;
+     border-radius: 50%;
+ }
+
+ #alert{
+  display: flex;
+  align-items:center;
+  padding: 0.55rem 0.65rem 0.55rem 0.75rem;
+  border-radius:1rem;
+  min-width:100px;
+  margin-left: 15%;
+  max-width: 70%;
+  justify-content: space-between;;
+  box-shadow:
+  0px 3.2px 13.8px rgba(0, 0, 0, 0.02),
+  0px 7.6px 33.3px rgba(0, 0, 0, 0.028),
+  0px 14.4px 62.6px rgba(0, 0, 0, 0.035),
+  0px 25.7px 111.7px rgba(0, 0, 0, 0.042),
+  0px 48px 208.9px rgba(0, 0, 0, 0.05),
+  0px 115px 500px rgba(0, 0, 0, 0.07)
+}
+.content{
+  display: flex;
+  align-items:center;
+}
+.icon{
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border-radius:39% 61% 42% 58% / 50% 51% 49% 50%;
+  box-shadow:
+  0px 3.2px 13.8px rgba(0, 0, 0, 0.02),
+  0px 7.6px 33.3px rgba(0, 0, 0, 0.028),
+  0px 14.4px 62.6px rgba(0, 0, 0, 0.035),
+  0px 25.7px 111.7px rgba(0, 0, 0, 0.042),
+  0px 48px 208.9px rgba(0, 0, 0, 0.05),
+  0px 115px 500px rgba(0, 0, 0, 0.07)
+}
+.close{
+  background-color: transparent;
+  border:none;
+  outline:none;
+  transition:all 0.2s ease-in-out;
+  padding: 0.75rem;
+  border-radius:0.5rem;
+  cursor:pointer;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+.close:hover{
+  background-color: #fff;
+}
+
+.danger{
+  background-color: rgba(236, 77, 43, 0.2);
+  border:2px solid #EC4D2B;
+}
+.danger .icon{
+  background-color: #EC4D2B;
+}
+
+#msgs{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+</style>
+
 {%endblock%}
