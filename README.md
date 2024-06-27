@@ -21,7 +21,7 @@ Welcome to the Student Forum! This platform is designed to provide a collaborati
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/student-forum.git
+   git clone https://github.com/ElroyCrasto/student-forum.git
    cd student-forum
     ```
 
